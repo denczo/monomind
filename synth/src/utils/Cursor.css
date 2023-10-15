@@ -1,0 +1,7 @@
+.Cursor{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(#fff3f3, #ff0000, transparent 50%);
+}

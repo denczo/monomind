@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: beige;
+  height: 100vh;
+}
+
+.touchpad{
+  background-color: aquamarine;
+  height: 300px;
+  width: 300px;
+}
