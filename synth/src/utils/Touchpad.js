@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import useMousePos from './MousePosHook';
 import Cursor from './Cursor';
-import myOscillator from '../Audio.js'
+import { startOsc, stopOsc, setFreqOsc } from '../Audio.js'
 
 import './Touchpad.css';
 
@@ -24,13 +24,13 @@ const Touchpad = ({width, height}) => {
     }, [])
 
     return (
-        <div className='Touchpad' onMouseDown={() => myOscillator.start()} onMouseUp={() => myOscillator.stop()} ref={padRef}>
+        <div className='Touchpad' onMouseDown={() => startOsc()} onMouseUp={() => stopOsc()} ref={padRef}>
             {mousePos.x >= x && mousePos.y >= y && mousePos.x < x+width && mousePos.y < y+height? 
             <Cursor />
             :
             <></>
             }
-            {myOscillator.frequency.value = mousePos.y}
+            {setFreqOsc(mousePos.y)}
         </div>
     );
 }
