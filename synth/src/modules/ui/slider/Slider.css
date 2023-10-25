@@ -1,0 +1,19 @@
+.Slider{
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    /* background-color: red; */
+}
+
+.Slider label{
+    margin-bottom: 60px;
+}
+
+input.Range {
+    margin-bottom: 70px;
+    margin-left: -25px;
+    background-color: aqua;
+    height: 10px;
+    width: 125px;
+    transform: rotate(270deg);
+}

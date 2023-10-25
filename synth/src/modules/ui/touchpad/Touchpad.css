@@ -1,0 +1,42 @@
+.Touchpad{
+    display: flex;
+    background-color: #323232;
+    height: 300px;
+    width: 300px;
+    /* border: solid 5px black; */
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+.Touchpad-border{
+  /* background:
+    linear-gradient(red, transparent),
+    linear-gradient(to top left, lime, transparent),
+    linear-gradient(to top right, blue, transparent); 
+  background-blend-mode: screen; */
+  background: grey;
+  padding: 3px;
+  border-radius: 12px;
+}
+  
+.LineX{
+  position: absolute;
+  width: 300px;
+  height: 2px;
+  background-image: linear-gradient(to right, rgb(170, 170, 170) 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 22px 2px;
+  background-repeat: repeat-x;
+}
+
+.LineY{
+  margin-left: 8px;
+  margin-bottom: 4px;
+  width: 2px;
+  height: 300px;
+  background-image: linear-gradient(rgb(170, 170, 170) 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: right;
+  background-size: 2px 21px;
+  background-repeat: repeat-y;
+}

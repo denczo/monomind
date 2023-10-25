@@ -4,12 +4,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: beige;
+  background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+  /* background: linear-gradient(90deg, #d53369 0%, #daae51 100%); */
+  color: black;
   height: 100vh;
+  user-select: none;
+
 }
 
 .touchpad{
   background-color: aquamarine;
   height: 300px;
   width: 300px;
+}
+
+.Synth label#brand{
+  font-family: Fantasy;
+  font-size: xx-large;
+}
+
+.Synth{
+  background: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }
