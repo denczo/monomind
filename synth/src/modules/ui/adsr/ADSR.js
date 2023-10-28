@@ -1,15 +1,27 @@
 import Slider from '../slider/Slider';
 import './ADSR.css';
+import { useGlobalContext } from '../../../utils/GlobalContext'
 
 const ADSR = () => {
 
-    return (<div className='ADSR'>
-      <Slider name={"Attack"}/>
-      <Slider name={"Delay"}/>
-      <Slider name={"Sustain"}/>
-      <Slider name={"Release"}/>
-    </div>
-    );
+  const {
+    attack,
+    decay,
+    sustain,
+    release,
+    updateAttack,
+    updateDecay,
+    updateSustain,
+    updateRelease,
+  } = useGlobalContext();
+
+  return (<div className='ADSR'>
+    <Slider name={"Attack"} value={attack} updateValue={(e) => updateAttack(e.target.value)}/>
+    <Slider name={"Delay"} value={decay} updateValue={(e) => updateDecay(e.target.value)}/>
+    <Slider name={"Sustain"} value={sustain} updateValue={(e) => updateSustain(e.target.value)}/>
+    <Slider name={"Release"} value={release} updateValue={(e) => updateRelease(e.target.value)}/>
+  </div>
+  );
 };
 
 export default ADSR;

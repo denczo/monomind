@@ -1,6 +1,6 @@
 import './Slider.css';
 
-const Slider = ({name}) => {
+const Slider = ({name, value, updateValue}) => {
 
     return (<div className="Slider">
         <label >{name}</label>
@@ -10,7 +10,8 @@ const Slider = ({name}) => {
             type="range"
             min="0"
             max="1"
-            // value="0.25"
+            value={value}
+            onChange={updateValue}
             step="0.05" />
     </div>
     );

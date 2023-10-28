@@ -19,10 +19,10 @@ function lowPassNode(node, ctx){
 }
 
 
-export function noteRelease(){
+export function noteRelease(releaseTime){
     const t_released = audioCtx.currentTime;
     const timeScale = 2;
-    const releaseDuration = 0.8 * timeScale;
+    const releaseDuration = releaseTime * timeScale;
 
     gain.gain.cancelScheduledValues(t_released);
     gain.gain.setValueAtTime(gain.gain.value, t_released);
@@ -40,8 +40,17 @@ export function init(wf){
     node = filter;
 }
 
-export function notePress(wf){
-    init(wf);
+export function notePress(wf, attackTime, decayTime, sustainTime){
+
+    init(wf)
+    const t_pressed = audioCtx.currentTime;
+    const attack_duration = attackTime;
+    const sustainLevel = sustainTime;
+    const decayDuration = decayTime;
+
+    gain.gain.setValueAtTime(0, t_pressed)
+    gain.gain.linearRampToValueAtTime(1, t_pressed + attack_duration);
+    gain.gain.setTargetAtTime(sustainLevel, t_pressed + attack_duration, decayDuration);
 }
 
 export function setFreqFilter(value){

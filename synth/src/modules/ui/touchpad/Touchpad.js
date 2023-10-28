@@ -3,6 +3,7 @@ import useMousePos from '../../../utils/MousePosHook';
 import Cursor from '../cursor/Cursor';
 import { setFreqOsc, setFreqFilter, noteRelease, notePress } from '../../../utils/Audio.js'
 import './Touchpad.css';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 
 const Touchpad = ({width, height, wf}) => {
 
@@ -10,6 +11,8 @@ const Touchpad = ({width, height, wf}) => {
     const padRef = useRef();
     const [x, setX] = useState();
     const [y, setY] = useState();
+    const { attack, decay, sustain, release } = useGlobalContext();
+
 
     const getPos = () => {
         const x = padRef.current.offsetLeft;
@@ -24,7 +27,7 @@ const Touchpad = ({width, height, wf}) => {
 
     return (
         <div className ='Touchpad-border'>
-            <div className='Touchpad' onMouseDown={() => notePress(wf)} onMouseUp={() => noteRelease()} onMouseOut={() => console.log("HAKUNA MATATA 2")} onMouseLeave={() => console.log("HAKUNA MATATA")} ref={padRef}>
+            <div className='Touchpad' onMouseDown={() => notePress(wf, attack, decay, sustain)} onMouseUp={() => noteRelease(release)} onMouseOut={() => console.log("HAKUNA MATATA 2")} onMouseLeave={() => console.log("HAKUNA MATATA")} ref={padRef}>
                 {mousePos.x >= x && mousePos.y >= y && mousePos.x < x+width && mousePos.y < y+height? 
                 <Cursor />
                 :
