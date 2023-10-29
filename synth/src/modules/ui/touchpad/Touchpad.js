@@ -27,9 +27,10 @@ const Touchpad = ({width, height, wf}) => {
 
     return (
         <div className ='Touchpad-border'>
-            <div className='Touchpad' onMouseDown={() => notePress(wf, attack, decay, sustain)} onMouseUp={() => noteRelease(release)} onMouseOut={() => console.log("HAKUNA MATATA 2")} onMouseLeave={() => console.log("HAKUNA MATATA")} ref={padRef}>
+            <div className='Touchpad' onMouseDown={() => notePress(wf, attack, decay, sustain)} onMouseUp={() => noteRelease(release)} ref={padRef}>
                 {mousePos.x >= x && mousePos.y >= y && mousePos.x < x+width && mousePos.y < y+height? 
                 <Cursor />
+                // <></>
                 :
                 <></>
                 }
