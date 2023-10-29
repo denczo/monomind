@@ -1,18 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
 import useMousePos from '../../../utils/MousePosHook';
 import Cursor from '../cursor/Cursor';
-import { setFreqOsc, setFreqFilter, noteRelease, notePress } from '../../../utils/Audio.js'
+import { setFreqOsc, setFreqFilter, noteRelease, notePress, initValues } from '../../../utils/Audio.js'
 import './Touchpad.css';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 
-const Touchpad = ({width, height, wf}) => {
+const Touchpad = ({ width, height, wf }) => {
 
     const mousePos = useMousePos();
     const padRef = useRef();
-    const [x, setX] = useState();
-    const [y, setY] = useState();
+    const [x, setX] = useState(padRef.current?.offsetLeft);
+    const [y, setY] = useState(padRef.current?.offsetTop);
     const { attack, decay, sustain, release } = useGlobalContext();
-
 
     const getPos = () => {
         const x = padRef.current.offsetLeft;
@@ -21,21 +20,55 @@ const Touchpad = ({width, height, wf}) => {
         setY(y);
     }
 
+    const mouseInside = () => {
+        if ((x + width >= mousePos.x && mousePos.x >= x) && (y + height >= mousePos.y && mousePos.y >= y)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // TODO: better variable names!
+    const getConvertedScale = (scale, x, mousPos, length) => {
+        return scale / length * (mousPos - x);
+    }
+
+    const updateFreqScale = () => {
+        const scaledFreq = getConvertedScale(300, x, mousePos.x, width)
+        const scaledFilter = getConvertedScale(600, y, mousePos.y, height)
+        setFreqOsc(scaledFreq);
+        setFreqFilter(scaledFilter);
+    }
+
+    const playNote = () => {
+        const scaledFreq = getConvertedScale(300, x, mousePos.x, width)
+        const scaledFilter = getConvertedScale(600, y, mousePos.y, height)
+        initValues(scaledFreq, scaledFilter);
+        notePress(wf, attack, decay, sustain);
+    }
+
+    const updateAudioParam = () => {
+        if (mouseInside()) {
+            updateFreqScale();
+        } else {
+            noteRelease(release);
+        }
+    }
+
     useEffect(() => {
         getPos();
+        updateAudioParam();
+        window.addEventListener("resize", getPos);
+        return () => {
+            window.removeEventListener("resize", getPos);
+        };
     }, [])
 
     return (
-        <div className ='Touchpad-border'>
-            <div className='Touchpad' onMouseDown={() => notePress(wf, attack, decay, sustain)} onMouseUp={() => noteRelease(release)} ref={padRef}>
-                {mousePos.x >= x && mousePos.y >= y && mousePos.x < x+width && mousePos.y < y+height? 
-                <Cursor />
-                // <></>
-                :
-                <></>
-                }
-                {setFreqOsc(mousePos.y, wf)}
-                {setFreqFilter(mousePos.x)}
+        <div className='Touchpad-border'>
+            <div className='Touchpad' onMouseDown={() => playNote()} onMouseUp={() => noteRelease(release)} ref={padRef}>
+                {mouseInside() ? <Cursor /> : <></>}
+                {updateAudioParam()}
                 <div className="LineX"></div>
                 <div className="LineY"></div>
             </div>

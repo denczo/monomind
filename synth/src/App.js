@@ -7,7 +7,7 @@ import { GlobalProvider } from './utils/GlobalContext';
 
 function App() {
 
-  const [waveform, setWaveform] = useState('Triangle');
+  const [waveform, setWaveform] = useState('Sawtooth');
 
   return (
     <GlobalProvider>
