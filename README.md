@@ -6,6 +6,8 @@ In it's current version it comes with a touchpad that manipulates the frequency 
 
 ![alt text](./synth/public/jblaster.jpeg)
 
+Live demo: https://denczo.github.io/jblaster/
+
 
 
 
