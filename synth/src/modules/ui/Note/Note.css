@@ -1,0 +1,21 @@
+.Note{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 5px solid black;
+}
+
+.Note.active{
+    background-color: darkgray;
+}
+
+.Note.played{
+    border: 5px solid red;
+}
+
+.Note.active.played{
+    border: 5px solid red;
+}

@@ -4,9 +4,11 @@ import Cursor from '../cursor/Cursor';
 import { setFreqOsc, setFreqFilter, noteRelease, notePress, initValues } from '../../../utils/Audio.js'
 import './Touchpad.css';
 import { useGlobalContext } from '../../../utils/GlobalContext';
+import AudioEngine from '../../../utils/AudioEngine/AudioEngine.tsx';
 
 const Touchpad = ({ width, height, wf }) => {
 
+    const audioEngine = AudioEngine.getInstance();
     const mousePos = useMousePos();
     const padRef = useRef();
     const [x, setX] = useState(padRef.current?.offsetLeft);
@@ -35,7 +37,7 @@ const Touchpad = ({ width, height, wf }) => {
 
     const updateFreqScale = () => {
         const scaledFreq = getConvertedScale(300, x, mousePos.x, width)
-        const scaledFilter = getConvertedScale(600, y, mousePos.y, height)
+        const scaledFilter = getConvertedScale(1500, y, mousePos.y, height)
         setFreqOsc(scaledFreq);
         setFreqFilter(scaledFilter);
     }
@@ -66,7 +68,7 @@ const Touchpad = ({ width, height, wf }) => {
 
     return (
         <div className='Touchpad-border'>
-            <div className='Touchpad' onMouseDown={() => playNote()} onMouseUp={() => noteRelease(release)} ref={padRef}>
+            <div className='Touchpad' onMouseDown={() => audioEngine.playNote(0, 2, 0.4)} onMouseUp={() => noteRelease(release)} ref={padRef}>
                 {mouseInside() ? <Cursor /> : <></>}
                 {updateAudioParam()}
                 <div className="LineX"></div>

@@ -1,4 +1,4 @@
-let audioCtx = new AudioContext();
+export let audioCtx = new AudioContext();
 let osc = null;
 let filter = null;
 let node = null;
@@ -77,6 +77,24 @@ export function notePress(wf, attackTime, decayTime, sustainTime){
     gain.gain.linearRampToValueAtTime(1, valueAtTime);
     gain.gain.setTargetAtTime(sustainLevel, targetAtTime, decayDuration);
 }
+
+
+export function playNote(time, attackTime, releaseTime, oscLength){
+    const osc = audioCtx.createOscillator();
+    osc.type = "Triangle";
+    osc.frequency.value = 420
+    const oscEnv = gainNode(osc, audioCtx);
+    oscEnv.gain.cancelScheduledValues(time);
+    oscEnv.gain.setValueAtTime(0, time);
+    oscEnv.gain.linearRampToValueAtTime(1, time + attackTime);
+    oscEnv.gain.linearRampToValueAtTime(0, time + oscLength - releaseTime);
+
+    osc.connect(oscEnv).connect(audioCtx.destination);
+    osc.start(time);
+    osc.stop(time + oscLength)
+}
+
+
 
 export function setFreqFilter(value){
     if(filter){

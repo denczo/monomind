@@ -1,0 +1,26 @@
+.WK{
+    display: flex;
+    width: 50px;
+    background-color: white;
+    height: 120px;
+    margin-left: 4px;
+}
+
+.BK{
+    display: flex;
+    width: 30px;
+    background-color: black;
+    height: 75px;
+    transform: translateX(50%);
+    margin-left: -30px;
+}
+
+.BK:hover{
+    /* background-color: grey; */
+    height: 70px;
+}
+
+.WK:hover{
+    /* background-color:gainsboro; */
+    height: 115px;
+}
