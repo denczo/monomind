@@ -1,18 +1,20 @@
-import Note from '../Note/Note';
+import React from 'react';
+import Note from '../Note/Note.tsx';
 import './Notes.css';
 
 const Notes = ({ noteStates, setNoteStates, activeNote }) => {
   
     return (
         <div className="Notes">
-            {noteStates.map((isActive, index) => 
+            
+            {noteStates.map((noteState, index) => 
                 <Note 
                     key={index}
-                    isActive={isActive}
+                    isActive={noteState.isActive}
                     isPlayed={index === activeNote}
                     onClick={() => {
                         const newNoteStates = [...noteStates];
-                        newNoteStates[index] = !isActive;
+                        newNoteStates[index].isActive = !noteState.isActive;
                         setNoteStates(newNoteStates);
                     }}           
                 />

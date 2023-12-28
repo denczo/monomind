@@ -17,7 +17,7 @@ const ADSR = () => {
 
   return (<div className='ADSR'>
     <Slider name={"Attack"} value={attack} updateValue={(e) => updateAttack(e.target.value)}/>
-    <Slider name={"Delay"} value={decay} updateValue={(e) => updateDecay(e.target.value)}/>
+    <Slider name={"Decay"} value={decay} updateValue={(e) => updateDecay(e.target.value)}/>
     <Slider name={"Sustain"} value={sustain} updateValue={(e) => updateSustain(e.target.value)}/>
     <Slider name={"Release"} value={release} updateValue={(e) => updateRelease(e.target.value)}/>
   </div>

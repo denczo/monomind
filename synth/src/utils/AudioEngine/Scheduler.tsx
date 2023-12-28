@@ -1,3 +1,4 @@
+import { Env, NoteState } from "../audio.d.tsx";
 import AudioEngine from "./AudioEngine.tsx";
 
 export class Scheduler {
@@ -11,10 +12,11 @@ export class Scheduler {
     scheduleAheadTime: number;
     notesInQueue: { note: number, time: number }[];
     timerID: ReturnType<typeof setTimeout>;
-    noteStates: boolean[];
+    noteStates: NoteState[];
     audioEngine: AudioEngine;
     currentNoteCallbacks: any[];
     observers: any[];
+    adsr: Env;
 
 
     private constructor(tempo: number = 120, currentNote: number = 0, nextNoteTime: number = 2.0, lookahead: number = 25.0, scheduleAheadTime: number = 0.1) {
@@ -25,7 +27,7 @@ export class Scheduler {
         this.scheduleAheadTime = scheduleAheadTime;
         this.notesInQueue = [];
         this.scheduler = this.scheduler.bind(this);
-        this.noteStates = [true, false, true, false, true, false, true, false, true, true]
+        this.noteStates = []
         this.audioEngine = AudioEngine.getInstance();
         this.currentNoteCallbacks = []
         this.observers = [];
@@ -57,14 +59,14 @@ export class Scheduler {
         this.currentNote = (this.currentNote + 1) % amountNotes;
     }
 
-    private scheduleNote(noteStates: boolean[]): void {
+    private scheduleNote(noteStates: NoteState[]): void {
         const beatNumber = this.currentNote;
         // Push the note on the queue, even if we're not playing.
         this.notesInQueue.push({ note: beatNumber, time: this.nextNoteTime });
         this.notifyObservers();
 
-        if (noteStates[beatNumber]) {
-            this.audioEngine.playNote(0, 0.2, 0.1);
+        if (noteStates[beatNumber].isActive) {
+            this.audioEngine.playNote(this.adsr.attack, this.adsr.sustain, this.adsr.release, noteStates[beatNumber].frequency);
             console.log('played')
         }
     }
@@ -82,6 +84,11 @@ export class Scheduler {
         this.timerID = setTimeout(this.scheduler, this.lookahead);
     }
 
+    public editNote(frequency: number): void{
+        this.noteStates[this.currentNote] = {isActive: true, frequency: frequency}
+        this.currentNote = (this.currentNote + 1) % this.noteStates.length;
+    }
+
 
     public startScheduler(): void {
         // Start the scheduling loop after a short delay
@@ -90,7 +97,18 @@ export class Scheduler {
         }, 10);
     }
 
-    public setNotes(noteStates: boolean[]) {
+    public stopScheduler(): void {
+        if(this.timerID){
+            clearTimeout(this.timerID);
+            this.currentNote = 0;
+        }
+    }
+
+    public setNotes(noteStates: NoteState[]) {
         this.noteStates = noteStates;
+    }
+
+    public setEnv(adsr: Env){
+        this.adsr = adsr;
     }
 }
