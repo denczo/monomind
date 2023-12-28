@@ -8,7 +8,7 @@ import { useGlobalContext } from '../../../utils/GlobalContext.js';
 const Sequencer = () => {
 
 
-    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 10 }, () => ({isActive: false, frequency: 0})));
+    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 12 }, () => ({isActive: false, frequency: 0})));
     const [currentNote, setCurrentNote] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const { attack, decay, sustain, release } = useGlobalContext();
@@ -33,6 +33,7 @@ const Sequencer = () => {
             setCurrentNote(newNote);
         };
         scheduler.setEnv({attack, decay, sustain, release});
+        console.log(attack, decay, sustain, release)
         scheduler.addObserver(observer);
 
         // Cleanup: Unsubscribe when the component unmounts

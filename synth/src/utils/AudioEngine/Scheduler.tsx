@@ -10,7 +10,6 @@ export class Scheduler {
     timerId: number;
     lookahead: number;
     scheduleAheadTime: number;
-    notesInQueue: { note: number, time: number }[];
     timerID: ReturnType<typeof setTimeout>;
     noteStates: NoteState[];
     audioEngine: AudioEngine;
@@ -25,7 +24,6 @@ export class Scheduler {
         this.nextNoteTime = nextNoteTime;
         this.lookahead = lookahead;
         this.scheduleAheadTime = scheduleAheadTime;
-        this.notesInQueue = [];
         this.scheduler = this.scheduler.bind(this);
         this.noteStates = []
         this.audioEngine = AudioEngine.getInstance();
@@ -62,9 +60,7 @@ export class Scheduler {
     private scheduleNote(noteStates: NoteState[]): void {
         const beatNumber = this.currentNote;
         // Push the note on the queue, even if we're not playing.
-        this.notesInQueue.push({ note: beatNumber, time: this.nextNoteTime });
         this.notifyObservers();
-
         if (noteStates[beatNumber].isActive) {
             this.audioEngine.playNote(this.adsr.attack, this.adsr.sustain, this.adsr.release, noteStates[beatNumber].frequency);
             console.log('played')
@@ -75,8 +71,8 @@ export class Scheduler {
         const currentTime = this.audioEngine.actx.currentTime;
         // While there are notes that will need to play before the next interval,
         // schedule them and advance the pointer.
-
         while (this.nextNoteTime < currentTime + this.scheduleAheadTime) {
+            console.log(this.nextNoteTime)
             this.scheduleNote(this.noteStates);
             this.nextNote(this.noteStates.length);
         }
@@ -93,7 +89,9 @@ export class Scheduler {
     public startScheduler(): void {
         // Start the scheduling loop after a short delay
         setTimeout(() => {
+            this.nextNoteTime = this.audioEngine.actx.currentTime;
             this.scheduler();
+            this.audioEngine.actx.resume();
         }, 10);
     }
 

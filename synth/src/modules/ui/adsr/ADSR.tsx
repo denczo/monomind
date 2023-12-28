@@ -1,6 +1,7 @@
 import Slider from '../slider/Slider';
 import './ADSR.css';
 import { useGlobalContext } from '../../../utils/GlobalContext'
+import React from 'react';
 
 const ADSR = () => {
 

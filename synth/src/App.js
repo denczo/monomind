@@ -1,5 +1,5 @@
 import './App.css';
-import ADSR from './modules/ui/adsr/ADSR';
+import ADSR from './modules/ui/adsr/ADSR.tsx';
 // import Touchpad from './modules/ui/touchpad/Touchpad';
 // import Waveform from './modules/waveform/Waveform';
 // import { useState } from "react";
