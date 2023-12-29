@@ -3,10 +3,12 @@ export default class AudioEngine{
     private static instance: AudioEngine | null = null;
     actx: AudioContext;
     waveform: string;
+    freqLp: number;
 
     private constructor(){
         window.addEventListener('click', this.initializeAudioContext);
         console.log("Initialized")
+        this.freqLp = 500;
     }
 
     public static getInstance(): AudioEngine{
@@ -31,12 +33,18 @@ export default class AudioEngine{
             const osc = this.actx.createOscillator();
             osc.type = this.waveform as OscillatorType;
             osc.frequency.value = freq;
+
+            const filter = this.actx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = this.freqLp;
+
+
             const oscEnv = new GainNode(this.actx, osc);
             oscEnv.gain.cancelScheduledValues(currentTime);
             oscEnv.gain.setValueAtTime(0, currentTime);
             oscEnv.gain.linearRampToValueAtTime(1, currentTime + attackTime);
             oscEnv.gain.linearRampToValueAtTime(0, currentTime + oscLength - releaseTime);
-            osc.connect(oscEnv).connect(this.actx.destination);
+            osc.connect(filter).connect(oscEnv).connect(this.actx.destination);
             osc.start(currentTime);
             osc.stop(currentTime + oscLength)
         }
@@ -44,6 +52,10 @@ export default class AudioEngine{
 
     public setWaveform(waveform: string): void{
         this.waveform = waveform;
+    }
+
+    public setFreqLp(freq: number): void{
+        this.freqLp = freq;
     }
 
     private isValidNumber(number: number): boolean{

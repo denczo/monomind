@@ -20,6 +20,7 @@ export interface Params {
     isEditing: boolean;
     bpm: number;
     waveform: string;
+    freqLp: number;
     setAttack:  React.Dispatch<React.SetStateAction<number>>;
     setDecay:  React.Dispatch<React.SetStateAction<number>>;
     setSustain: React.Dispatch<React.SetStateAction<number>>;
@@ -29,5 +30,6 @@ export interface Params {
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
     setBpm: React.Dispatch<React.SetStateAction<number>>;
     setWaveform: React.Dispatch<React.SetStateAction<string>>;
+    setFreqLp: React.Dispatch<React.SetStateAction<number>>;
 
 }
