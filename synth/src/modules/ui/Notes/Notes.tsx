@@ -2,7 +2,7 @@ import React from 'react';
 import Note from '../Note/Note.tsx';
 import './Notes.css';
 
-const Notes = ({ noteStates, setNoteStates, activeNote }) => {
+const Notes = ({ noteStates, setNoteStates, activeNote, isEditing }) => {
   
     return (
         <div className="Notes">
@@ -12,6 +12,7 @@ const Notes = ({ noteStates, setNoteStates, activeNote }) => {
                     key={index}
                     isActive={noteState.isActive}
                     isPlayed={index === activeNote}
+                    isEditing={isEditing}
                     onClick={() => {
                         const newNoteStates = [...noteStates];
                         newNoteStates[index].isActive = !noteState.isActive;

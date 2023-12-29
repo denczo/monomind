@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import './Keyboard.css';
 import Key from "../Key/Key.tsx";
 import AudioEngine from "../../../../utils/AudioEngine/AudioEngine.tsx";
-import { useGlobalContext } from '../../../../utils/GlobalContext';
+import { useGlobalContext } from '../../../../utils/GlobalContext.tsx';
 import { Scheduler } from "../../../../utils/AudioEngine/Scheduler.tsx";
 
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, decay, sustain, release } = useGlobalContext();
-    const [isRecording, setRecording] = useState(false);
+    const { attack, sustain, release, isEditing, setEditing } = useGlobalContext();
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
         audioEngine.playNote(attack, sustain, release, freq);
-        if (isRecording) {
+        if (isEditing) {
             scheduler.editNote(freq);
         }
     }
 
 
-    const handleRecording = () => {
-        if (isRecording) {
-            setRecording(false);
+    const handleEditing = () => {
+        if (isEditing) {
+            setEditing(false);
         } else {
-            setRecording(true);
+            setEditing(true);
         }
     }
 
@@ -44,7 +43,7 @@ const Keyboard = ({ notes }) => {
     }
 
     return (<>
-        <button onClick={handleRecording}>{isRecording ? "Editing" : "Edit"}</button>
+        <button onClick={handleEditing}>{isEditing ? "Editing" : "Edit"}</button>
         <div className="Keyboard">{generateKeys()}</div>
     </>);
 }

@@ -1,10 +1,30 @@
 import React from 'react';
 import './Note.css';
 
-const Note = ({ isActive, isPlayed, onClick }) => {
+const Note = ({ isActive, isPlayed, isEditing, onClick }) => {
+
+
+    const state = () => {
+        
+        let className = "Note ";
+
+        if(isActive){
+            className += "active "
+        }
+
+        if(isPlayed){
+            className += "played "
+        }
+
+        if(isEditing){
+            className += "edit "
+        }
+
+        return className
+    }
 
     return (
-        <div className={isActive ? (isPlayed ? "Note active played": "Note active") : (isPlayed ? "Note played": "Note")} onClick={onClick}></div>
+        <div className={state()} onClick={onClick}></div>
     );
 }
 

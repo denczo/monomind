@@ -72,7 +72,6 @@ export class Scheduler {
         // While there are notes that will need to play before the next interval,
         // schedule them and advance the pointer.
         while (this.nextNoteTime < currentTime + this.scheduleAheadTime) {
-            console.log(this.nextNoteTime)
             this.scheduleNote(this.noteStates);
             this.nextNote(this.noteStates.length);
         }
@@ -81,6 +80,7 @@ export class Scheduler {
     }
 
     public editNote(frequency: number): void{
+        this.notifyObservers();
         this.noteStates[this.currentNote] = {isActive: true, frequency: frequency}
         this.currentNote = (this.currentNote + 1) % this.noteStates.length;
     }

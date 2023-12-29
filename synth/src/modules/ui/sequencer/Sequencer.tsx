@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Notes from '../Notes/Notes.tsx';
 import { Scheduler } from '../../../utils/AudioEngine/Scheduler.tsx';
 import { NoteState } from '../../../utils/audio.d.tsx';
-import { useGlobalContext } from '../../../utils/GlobalContext.js';
+import { useGlobalContext } from '../../../utils/GlobalContext.tsx';
 
 const Sequencer = () => {
 
@@ -11,7 +11,7 @@ const Sequencer = () => {
     const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 12 }, () => ({isActive: false, frequency: 0})));
     const [currentNote, setCurrentNote] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
-    const { attack, decay, sustain, release } = useGlobalContext();
+    const { isEditing } = useGlobalContext();
 
     const scheduler = Scheduler.getInstance();
 
@@ -25,15 +25,12 @@ const Sequencer = () => {
         }
     }
 
-
     useEffect(() => {
 
         scheduler.setNotes(noteStates);
         const observer = newNote => {
             setCurrentNote(newNote);
         };
-        scheduler.setEnv({attack, decay, sustain, release});
-        console.log(attack, decay, sustain, release)
         scheduler.addObserver(observer);
 
         // Cleanup: Unsubscribe when the component unmounts
@@ -46,7 +43,8 @@ const Sequencer = () => {
     return (
         <div>
             {scheduler.tempo}
-            <Notes noteStates={noteStates} setNoteStates={setNoteStates} activeNote={currentNote} />
+            {" "+currentNote}
+            <Notes noteStates={noteStates} setNoteStates={setNoteStates} activeNote={currentNote} isEditing={isEditing} />
             <button onClick={handleClick}>{isPlaying ? "Stop" : "Play"}</button>
         </div>
     );

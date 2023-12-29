@@ -9,13 +9,14 @@
 }
 
 .Note.active{
-    background-color: darkgray;
+    background-color: darkslategrey;
+}
+
+.Note.edit{
+    border: 5px solid gold;
 }
 
 .Note.played{
     border: 5px solid red;
-}
-
-.Note.active.played{
-    border: 5px solid red;
+    /* background-color: red; */
 }
