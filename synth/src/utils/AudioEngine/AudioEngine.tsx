@@ -4,11 +4,13 @@ export default class AudioEngine{
     actx: AudioContext;
     waveform: string;
     freqLp: number;
+    gain: number;
 
     private constructor(){
         window.addEventListener('click', this.initializeAudioContext);
         console.log("Initialized")
         this.freqLp = 500;
+        this.gain = 0.2;
     }
 
     public static getInstance(): AudioEngine{
@@ -34,15 +36,24 @@ export default class AudioEngine{
             osc.type = this.waveform as OscillatorType;
             osc.frequency.value = freq;
 
+            const lfo = this.actx.createOscillator();
+            lfo.type = 'triangle';
+            lfo.frequency.value = 2;
+            const lfoGain = new GainNode(this.actx, lfo);
+            lfoGain.gain.value = 300
+            lfo.connect(lfoGain);
+
             const filter = this.actx.createBiquadFilter();
             filter.type = 'lowpass';
             filter.frequency.value = this.freqLp;
 
+            lfoGain.connect(filter.frequency);
+            lfo.start();
 
             const oscEnv = new GainNode(this.actx, osc);
             oscEnv.gain.cancelScheduledValues(currentTime);
             oscEnv.gain.setValueAtTime(0, currentTime);
-            oscEnv.gain.linearRampToValueAtTime(1, currentTime + attackTime);
+            oscEnv.gain.linearRampToValueAtTime(this.gain, currentTime + attackTime);
             oscEnv.gain.linearRampToValueAtTime(0, currentTime + oscLength - releaseTime);
             osc.connect(filter).connect(oscEnv).connect(this.actx.destination);
             osc.start(currentTime);
