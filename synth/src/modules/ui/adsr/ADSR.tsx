@@ -1,4 +1,4 @@
-import Slider from '../slider/Slider';
+import Slider from '../slider/Slider.tsx';
 import './ADSR.css';
 import { useGlobalContext } from '../../../utils/GlobalContext.tsx'
 import React, { useEffect } from 'react';
@@ -7,7 +7,6 @@ import { Scheduler } from '../../../utils/AudioEngine/Scheduler.tsx';
 const ADSR = () => {
 
   const scheduler = Scheduler.getInstance();
-
 
   const {
     attack,

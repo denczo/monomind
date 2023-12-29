@@ -1,7 +1,7 @@
 .Note{
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     background-color: black;
     margin-left: 5px;
     border-radius: 5px;
@@ -18,5 +18,4 @@
 
 .Note.played{
     border: 5px solid red;
-    /* background-color: red; */
 }

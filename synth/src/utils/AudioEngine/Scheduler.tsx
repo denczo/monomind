@@ -63,7 +63,6 @@ export class Scheduler {
         this.notifyObservers();
         if (noteStates[beatNumber].isActive) {
             this.audioEngine.playNote(this.adsr.attack, this.adsr.sustain, this.adsr.release, noteStates[beatNumber].frequency);
-            console.log('played')
         }
     }
 
@@ -108,5 +107,9 @@ export class Scheduler {
 
     public setEnv(adsr: Env){
         this.adsr = adsr;
+    }
+
+    public setTempo(bpm: number){
+        this.tempo = bpm;
     }
 }

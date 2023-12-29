@@ -8,22 +8,13 @@ import { Scheduler } from "../../../../utils/AudioEngine/Scheduler.tsx";
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, sustain, release, isEditing, setEditing } = useGlobalContext();
+    const { attack, sustain, release, isEditing } = useGlobalContext();
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
         audioEngine.playNote(attack, sustain, release, freq);
         if (isEditing) {
             scheduler.editNote(freq);
-        }
-    }
-
-
-    const handleEditing = () => {
-        if (isEditing) {
-            setEditing(false);
-        } else {
-            setEditing(true);
         }
     }
 
@@ -43,7 +34,6 @@ const Keyboard = ({ notes }) => {
     }
 
     return (<>
-        <button onClick={handleEditing}>{isEditing ? "Editing" : "Edit"}</button>
         <div className="Keyboard">{generateKeys()}</div>
     </>);
 }

@@ -1,6 +1,7 @@
+import React from 'react';
 import './Slider.css';
 
-const Slider = ({name, value, updateValue}) => {
+const Slider = ({name, value, updateValue, min = 0, max = 1}) => {
 
     return (<div className="Slider">
         <label >{name}</label>
@@ -8,8 +9,8 @@ const Slider = ({name, value, updateValue}) => {
             className="Range"
             id={name.toString().toLowerCase()}
             type="range"
-            min="0"
-            max="1"
+            min={min}
+            max={max}
             value={value}
             onChange={updateValue}
             step="0.05" />

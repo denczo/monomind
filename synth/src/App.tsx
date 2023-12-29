@@ -17,7 +17,6 @@ function App() {
     <GlobalProvider>
       <div className="App">
         <div className="Synth">
-        {/* <label id="brand">JBLASTER</label> */}
         <ADSR />
         <Waveform />
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}
