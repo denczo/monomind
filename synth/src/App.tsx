@@ -1,10 +1,10 @@
 import './App.css';
-import ADSR from './modules/ui/adsr/ADSR.tsx';
+import ADSR from './components/molecules/adsr/ADSR.tsx';
 // import Touchpad from './modules/ui/touchpad/Touchpad';
-import Waveform from './modules/waveform/Waveform.tsx';
-import { GlobalProvider } from './utils/GlobalContext.tsx';
-import Sequencer from './modules/ui/sequencer/Sequencer.tsx';
-import Keyboard from './modules/ui/keys/Keyboard/Keyboard.tsx';
+import Waveform from './components/atoms/waveform/Waveform.tsx';
+import { GlobalProvider } from './contexts/GlobalContext.tsx';
+import Sequencer from './components/molecules/sequencer/Sequencer.tsx';
+import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
 import React from 'react';
 
 
@@ -17,8 +17,10 @@ function App() {
     <GlobalProvider>
       <div className="App">
         <div className="Synth">
+        <div className='SliderSection'>
         <ADSR />
         <Waveform />
+        </div>
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}
         <Sequencer/>
         <Keyboard notes={notes}/>

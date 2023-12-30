@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Params } from './audio.d';
+import { Params } from '../types/audio.d';
 
 const GlobalContext = createContext<Params>({
     attack: 0,

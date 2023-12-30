@@ -12,6 +12,7 @@ const Slider = ({name, value, updateValue, min = 0, max = 1}) => {
             min={min}
             max={max}
             value={value}
+            // onWheel={(e) => updateValue(e.deltaY)}
             onChange={updateValue}
             step="0.05" />
     </div>

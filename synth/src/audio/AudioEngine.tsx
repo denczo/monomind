@@ -1,4 +1,4 @@
-export default class AudioEngine{
+export class AudioEngine{
 
     private static instance: AudioEngine | null = null;
     actx: AudioContext;
@@ -67,6 +67,10 @@ export default class AudioEngine{
 
     public setFreqLp(freq: number): void{
         this.freqLp = freq;
+    }
+
+    public setGain(gain: number): void{
+        this.gain = gain;
     }
 
     private isValidNumber(number: number): boolean{

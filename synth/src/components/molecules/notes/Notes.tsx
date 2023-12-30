@@ -1,5 +1,5 @@
 import React from 'react';
-import Note from '../Note/Note.tsx';
+import Note from '../../atoms/note/Note.tsx';
 import './Notes.css';
 
 const Notes = ({ noteStates, setNoteStates, activeNote, isEditing }) => {

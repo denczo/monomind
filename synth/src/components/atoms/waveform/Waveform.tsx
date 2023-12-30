@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Waveform.css';
-import { useGlobalContext } from '../../utils/GlobalContext.tsx'
-import AudioEngine from '../../utils/AudioEngine/AudioEngine.tsx';
+import { useGlobalContext } from '../../../contexts/GlobalContext.tsx'
+import { AudioEngine } from '../../../audio/AudioEngine.tsx';
 
 
 const Waveform = () => {
@@ -11,7 +11,7 @@ const Waveform = () => {
 
     useEffect(() => {
         audioEngine.setWaveform(waveform);
-    }, [waveform]);
+    }, [waveform, audioEngine]);
 
     return (
         <div className="Waveform">

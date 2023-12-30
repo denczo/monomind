@@ -1,9 +1,9 @@
 import React from "react";
 import './Keyboard.css';
-import Key from "../Key/Key.tsx";
-import AudioEngine from "../../../../utils/AudioEngine/AudioEngine.tsx";
-import { useGlobalContext } from '../../../../utils/GlobalContext.tsx';
-import { Scheduler } from "../../../../utils/AudioEngine/Scheduler.tsx";
+import Key from "../../atoms/key/Key.tsx";
+import { AudioEngine } from "../../../audio/AudioEngine.tsx";
+import { useGlobalContext } from '../../../contexts/GlobalContext.tsx';
+import { Scheduler } from "../../../audio/Scheduler.tsx";
 
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();

@@ -1,8 +1,8 @@
-import Slider from '../slider/Slider.tsx';
+import Slider from '../../atoms/slider/Slider.tsx';
 import './ADSR.css';
-import { useGlobalContext } from '../../../utils/GlobalContext.tsx'
+import { useGlobalContext } from '../../../contexts/GlobalContext.tsx'
 import React, { useEffect } from 'react';
-import { Scheduler } from '../../../utils/AudioEngine/Scheduler.tsx';
+import { Scheduler } from '../../../audio/Scheduler.tsx';
 
 const ADSR = () => {
 

@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import useMousePos from '../../../utils/MousePosHook';
-import Cursor from '../cursor/Cursor';
+import useMousePos from '../../../utils/MousePosHook.tsx';
+import Cursor from '../cursor/Cursor.tsx';
 import { setFreqOsc, setFreqFilter, noteRelease, notePress, initValues } from '../../../utils/Audio.js'
 import './Touchpad.css';
-import { useGlobalContext } from '../../../utils/GlobalContext';
-import AudioEngine from '../../../utils/AudioEngine/AudioEngine.tsx';
+import { useGlobalContext } from '../../../utils/GlobalContext.tsx';
+import AudioEngine from '../../../utils/AudioEngine.tsx';
 
 const Touchpad = ({ width, height, wf }) => {
 

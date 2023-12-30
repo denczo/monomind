@@ -1,5 +1,5 @@
-import { Env, NoteState } from "../audio.d.tsx";
-import AudioEngine from "./AudioEngine.tsx";
+import { Env, NoteState } from "../types/audio.d.tsx";
+import { AudioEngine } from "./AudioEngine.tsx";
 
 export class Scheduler {
 
