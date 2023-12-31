@@ -33,3 +33,9 @@ export interface Params {
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
 
 }
+
+export enum Waveform {
+    triangle = 2,
+    sawtooth = 1,
+    square = 0
+}

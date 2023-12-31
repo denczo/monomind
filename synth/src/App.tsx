@@ -1,11 +1,12 @@
 import './App.css';
 import ADSR from './components/molecules/adsr/ADSR.tsx';
 // import Touchpad from './modules/ui/touchpad/Touchpad';
-import Waveform from './components/atoms/waveform/Waveform.tsx';
 import { GlobalProvider } from './contexts/GlobalContext.tsx';
 import Sequencer from './components/molecules/sequencer/Sequencer.tsx';
 import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
 import React from 'react';
+// import WfSelector from './components/molecules/wfselector/WfSelector.tsx';
+import Controls from './components/organism/controls/Controls.tsx';
 
 
 
@@ -19,7 +20,8 @@ function App() {
         <div className="Synth">
         <div className='SliderSection'>
         <ADSR />
-        <Waveform />
+        {/* <WfSelector /> */}
+        <Controls />
         </div>
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}
         <Sequencer/>
