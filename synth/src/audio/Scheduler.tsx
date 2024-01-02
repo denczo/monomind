@@ -1,4 +1,4 @@
-import { Env, NoteState } from "../types/audio.d.tsx";
+import { AdsrParams, Env, NoteState } from "../types/audio.d.tsx";
 import { AudioEngine } from "./AudioEngine.tsx";
 
 export class Scheduler {
@@ -62,7 +62,7 @@ export class Scheduler {
         // Push the note on the queue, even if we're not playing.
         this.notifyObservers();
         if (noteStates[beatNumber].isActive) {
-            this.audioEngine.playNote(this.adsr.attack, this.adsr.sustain, this.adsr.release, noteStates[beatNumber].frequency);
+            this.audioEngine.setAudioChain(false, this.audioEngine.adsrParams);
         }
     }
 

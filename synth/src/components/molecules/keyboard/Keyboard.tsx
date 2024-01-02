@@ -4,15 +4,18 @@ import Key from "../../atoms/key/Key.tsx";
 import { AudioEngine } from "../../../audio/AudioEngine.tsx";
 import { useGlobalContext } from '../../../contexts/GlobalContext.tsx';
 import { Scheduler } from "../../../audio/Scheduler.tsx";
+import { AdsrParams, OscId } from "../../../types/audio.d.tsx";
 
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, sustain, release, isEditing } = useGlobalContext();
+    const { attack, decay, sustain, release, isEditing, waveform } = useGlobalContext();
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
-        audioEngine.playNote(attack, sustain, release, freq);
+        audioEngine.setOscParams(OscId.OSC1, freq, waveform as OscillatorType);
+        audioEngine.setAudioChain(false, {attack, decay, sustain, release} as AdsrParams)
+        // audioEngine.playNote(attack, sustain, release, freq);
         if (isEditing) {
             scheduler.editNote(freq);
         }

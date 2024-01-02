@@ -3,11 +3,17 @@ export interface NoteState {
     frequency: number;
 }
 
-export interface Env {
+export interface AdsrParams {
+    value: number;
     attack: number;
     decay: number;
     sustain: number;
     release: number;
+}
+
+export interface OscParams{
+    type: OscillatorType;
+    frequency: number;
 }
 
 export interface Params {
@@ -31,11 +37,16 @@ export interface Params {
     setBpm: React.Dispatch<React.SetStateAction<number>>;
     setWaveform: React.Dispatch<React.SetStateAction<string>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
-
 }
 
 export enum Waveform {
     triangle = 2,
     sawtooth = 1,
     square = 0
+}
+
+export enum OscId {
+    OSC1 = 0,
+    OSC2 = 1,
+    LFO = 2
 }

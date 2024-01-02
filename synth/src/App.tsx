@@ -18,6 +18,7 @@ function App() {
     <GlobalProvider>
       <div className="App">
         <div className="Synth">
+        {/* <h1>MicroMind</h1> */}
         <div className='SliderSection'>
         <ADSR />
         {/* <WfSelector /> */}
