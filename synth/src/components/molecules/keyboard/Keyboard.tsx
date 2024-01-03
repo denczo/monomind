@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Keyboard.css';
 import Key from "../../atoms/key/Key.tsx";
 import { AudioEngine } from "../../../audio/AudioEngine.tsx";
@@ -9,7 +9,7 @@ import { AdsrParams, OscId } from "../../../types/audio.d.tsx";
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, decay, sustain, release, isEditing, waveform } = useGlobalContext();
+    const { attack, decay, sustain, release, isEditing, waveform, currentNote } = useGlobalContext();
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
@@ -17,7 +17,7 @@ const Keyboard = ({ notes }) => {
         audioEngine.setAudioChain(false, {attack, decay, sustain, release} as AdsrParams)
         // audioEngine.playNote(attack, sustain, release, freq);
         if (isEditing) {
-            scheduler.editNote(freq, waveform as OscillatorType);
+            scheduler.editNote(freq, waveform as OscillatorType, noteNumber);
         }
     }
 
@@ -28,13 +28,19 @@ const Keyboard = ({ notes }) => {
     const generateKeys = () => {
 
         return Object.entries(notes).map(([key, value], index) => {
+            const noteNumber = scheduler.noteStates[currentNote].noteNumber;
             if (key.includes("#")) {
-                return <Key type={"BK"} key={index} onClick={() => handleClick(value)} />
+                return <Key type={"BK"} key={index} isActive={value==noteNumber} onClick={() => handleClick(value)} />
             } else {
-                return <Key type={"WK"} key={index} onClick={() => handleClick(value)} />
+                return <Key type={"WK"} key={index} isActive={value==noteNumber} onClick={() => handleClick(value)} />
             }
         })
     }
+
+    useEffect(() => {
+
+        console.log(scheduler.noteStates[currentNote].noteNumber)
+    },[currentNote])
 
     return (<>
         <div className="Keyboard">{generateKeys()}</div>

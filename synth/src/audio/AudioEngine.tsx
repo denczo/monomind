@@ -100,7 +100,7 @@ export class AudioEngine {
             const osc = this.initOscillator(this.oscParams[OscId.OSC1]);
             const oscGain = new GainNode(this.actx, osc);
             oscGain.gain.value = this.gain;
-            console.log("Osc Params", this.oscParams[OscId.OSC1].frequency, this.oscParams[OscId.OSC1].type)
+            // console.log("Osc Params", this.oscParams[OscId.OSC1].frequency, this.oscParams[OscId.OSC1].type)
             const lfo = this.initOscillator(this.oscParams[OscId.LFO]);
             lfo.frequency.value = 5;
             const lfoGain = new GainNode(this.actx, lfo);

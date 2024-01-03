@@ -12,6 +12,7 @@ const GlobalContext = createContext<Params>({
     bpm: 0,
     waveform: 'sawtooth',
     freqLp: 500,
+    currentNote: 0,
     setAttack: function (value: React.SetStateAction<number>): void {
         throw new Error('Function not implemented.');
     },
@@ -41,6 +42,9 @@ const GlobalContext = createContext<Params>({
     },
     setFreqLp: function (value: React.SetStateAction<number>): void {
         throw new Error('Function not implemented.');
+    }, 
+    setCurrentNote: function (value: React.SetStateAction<number>): void {
+        throw new Error('Function not implemented.');
     },
 });
 
@@ -56,6 +60,7 @@ export function GlobalProvider({ children }){
     const [bpm, setBpm] = useState(120)
     const [waveform, setWaveform] = useState('sawtooth')
     const [freqLp, setFreqLp] = useState(500);
+    const [currentNote, setCurrentNote] = useState(0);
 
     return (
         <GlobalContext.Provider value={{
@@ -69,6 +74,7 @@ export function GlobalProvider({ children }){
             bpm,
             waveform,
             freqLp,
+            currentNote,
             setAttack,
             setDecay,
             setSustain,
@@ -79,6 +85,7 @@ export function GlobalProvider({ children }){
             setBpm,
             setWaveform,
             setFreqLp,
+            setCurrentNote,
         }}>
             {children}
         </GlobalContext.Provider>

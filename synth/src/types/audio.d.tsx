@@ -2,6 +2,7 @@ export interface NoteState {
     isActive: boolean;
     frequency: number;
     type: OscillatorType;
+    noteNumber: number;
 }
 
 export interface AdsrParams {
@@ -31,6 +32,7 @@ export interface Params {
     waveform: string;
     freqLp: number;
     type: string[];
+    currentNote: number;
     setAttack:  React.Dispatch<React.SetStateAction<number>>;
     setDecay:  React.Dispatch<React.SetStateAction<number>>;
     setSustain: React.Dispatch<React.SetStateAction<number>>;
@@ -42,6 +44,8 @@ export interface Params {
     setWaveform: React.Dispatch<React.SetStateAction<string>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
     setTypes: React.Dispatch<React.SetStateAction<string[]>>;
+    setCurrentNote: React.Dispatch<React.SetStateAction<number>>;
+
 }
 
 

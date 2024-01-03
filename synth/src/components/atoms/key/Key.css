@@ -26,3 +26,19 @@
     /* background-color:gainsboro; */
     height: 115px;
 }
+
+.BK.active{
+    background: lightskyblue;
+    /* animation: fade 0.1s linear; */
+}
+
+.WK.active{
+    background: lightskyblue;
+    /* animation: fade 0.1s linear; */
+
+}
+
+@keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}

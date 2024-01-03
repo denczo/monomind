@@ -80,9 +80,9 @@ export class Scheduler {
         this.timerID = setTimeout(this.scheduler, this.lookahead);
     }
 
-    public editNote(frequency: number, type: OscillatorType): void{
+    public editNote(frequency: number, type: OscillatorType, noteNumber: number): void{
         this.notifyObservers();
-        this.noteStates[this.currentNote] = {isActive: true, frequency: frequency, type: type as OscillatorType}
+        this.noteStates[this.currentNote] = {isActive: true, frequency: frequency, type: type as OscillatorType, noteNumber: noteNumber}
         this.currentNote = (this.currentNote + 1) % this.noteStates.length;
     }
 
