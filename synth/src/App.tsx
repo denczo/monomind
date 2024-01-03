@@ -7,6 +7,8 @@ import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
 import React from 'react';
 // import WfSelector from './components/molecules/wfselector/WfSelector.tsx';
 import Controls from './components/organism/controls/Controls.tsx';
+import Lfo from './components/molecules/oscillator/Lfo.tsx';
+import Osc from './components/molecules/oscillator/Osc.tsx';
 
 
 
@@ -20,8 +22,6 @@ function App() {
         <div className="Synth">
         {/* <h1>MicroMind</h1> */}
         <div className='SliderSection'>
-        <ADSR />
-        {/* <WfSelector /> */}
         <Controls />
         </div>
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}

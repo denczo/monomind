@@ -4,7 +4,6 @@ import './Slider.css';
 const Slider = ({name, value, updateValue, min = 0, max = 1, step = 0.05}) => {
 
     return (<div className="Slider">
-        <label>{name}</label>
         <input
             className="Range"
             id={name.toString().toLowerCase()}
@@ -15,6 +14,8 @@ const Slider = ({name, value, updateValue, min = 0, max = 1, step = 0.05}) => {
             // onWheel={(e) => updateValue(e.deltaY)}
             onChange={updateValue}
             step={step} />
+                <label>{name}</label>
+
     </div>
     );
 };

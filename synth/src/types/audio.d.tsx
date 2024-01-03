@@ -5,6 +5,7 @@ export interface NoteState {
 }
 
 export interface AdsrParams {
+    //for gadsr it's gain, for fadsr it's frequency
     value: number;
     attack: number;
     decay: number;
@@ -29,6 +30,7 @@ export interface Params {
     bpm: number;
     waveform: string;
     freqLp: number;
+    type: string[];
     setAttack:  React.Dispatch<React.SetStateAction<number>>;
     setDecay:  React.Dispatch<React.SetStateAction<number>>;
     setSustain: React.Dispatch<React.SetStateAction<number>>;
@@ -39,7 +41,9 @@ export interface Params {
     setBpm: React.Dispatch<React.SetStateAction<number>>;
     setWaveform: React.Dispatch<React.SetStateAction<string>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
+    setTypes: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
 
 export enum Waveform {
     triangle = 2,

@@ -1,8 +1,4 @@
 .Controls{
     display: flex;
     flex-direction: row;
-    border: 2px solid black;
-    margin-left: 5px;
-    border-radius: 10px;
-    margin-bottom: 10px;
 }

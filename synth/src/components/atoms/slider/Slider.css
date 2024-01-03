@@ -1,17 +1,18 @@
 .Slider{
     display: flex;
     flex-direction: column;
-    width: 75px;
+    width: 60px;
     /* background-color: red; */
 }
 
 .Slider label{
-    margin-bottom: 60px;
+    margin-top: 60px;
+    height:25px;
 }
 
 input.Range {
-    margin-bottom: 70px;
-    margin-left: -25px;
+    margin-top: 70px;
+    margin-left: -31px;
     background-color: aqua;
     height: 10px;
     width: 125px;

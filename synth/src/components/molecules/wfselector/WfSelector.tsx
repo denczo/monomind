@@ -18,11 +18,11 @@ const WfSelector = ({oscId} : {oscId: OscId}) => {
     return (
         <div className="WfSelector">
             <div className='sublabel'>
-                <span>TRI</span>
-                <span>SAW</span>
-                <span>SQU</span>
+                <span>Tri</span>
+                <span>Saw</span>
+                <span>Squ</span>
             </div>
-            <Slider max={2} step={1} name={"WF"} value={undefined} updateValue={(e) => setWaveform(Waveform[e.target.value])} />
+            <Slider max={2} step={1} name={""} value={undefined} updateValue={(e) => setWaveform(Waveform[e.target.value])} />
         </div>
     );
 }
