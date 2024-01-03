@@ -18,9 +18,9 @@ export class AudioEngine {
         this.freqLp = 500;
         this.gain = 0.2;
         this.adsrParams = {value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5}
-        this.oscParams = {[OscId.OSC1]:{type: 'triangle' as OscillatorType, frequency: 0},
-        [OscId.OSC2]:{type: 'triangle' as OscillatorType, frequency: 0},
-        [OscId.LFO]:{type: 'triangle' as OscillatorType, frequency: 0}};
+        this.oscParams = {[OscId.OSC1]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1},
+        [OscId.OSC2]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1},
+        [OscId.LFO]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1}};
     }
 
     private initializeAudioContext = () => {
@@ -66,10 +66,17 @@ export class AudioEngine {
         return osc;
     }
 
-    public setOscParams(oscId: OscId, freq: number, type: OscillatorType): void {
-        console.log("SET OSC", freq, oscId)
-        this.oscParams[oscId].frequency = freq;
-        this.oscParams[oscId].type = type;
+    public setOscParams(oscId: OscId, oscParams: OscParams): void {
+        const { frequency, type, gain } = oscParams;
+        if (this.isValidNumber(frequency) && this.isValidNumber(gain)) {
+            this.oscParams[oscId].frequency = frequency;
+            this.oscParams[oscId].type = type;
+            this.oscParams[oscId].gain = gain;
+        }
+    }
+
+    public setAdsr(params: AdsrParams): void{
+        this.adsrParams = params;
     }
 
     // sets parameters for either a filter adsr @filter.frequency or a gain adsr @gain.gain
@@ -89,12 +96,16 @@ export class AudioEngine {
 
         if(this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release) ){
             const currentTime = this.actx.currentTime;
-            const osc = this.initOscillator(this.oscParams[OscId.OSC1]);
 
+            const osc = this.initOscillator(this.oscParams[OscId.OSC1]);
+            const oscGain = new GainNode(this.actx, osc);
+            oscGain.gain.value = this.gain;
+            console.log("Osc Params", this.oscParams[OscId.OSC1].frequency, this.oscParams[OscId.OSC1].type)
             const lfo = this.initOscillator(this.oscParams[OscId.LFO]);
             lfo.frequency.value = 5;
             const lfoGain = new GainNode(this.actx, lfo);
             lfoGain.gain.value = 4;
+
             lfo.connect(lfoGain);
             lfoGain.connect(osc.frequency);
 
@@ -102,7 +113,7 @@ export class AudioEngine {
             filter.type = 'lowpass';
             this.setAdsrParams(filter.frequency, { value: this.freqLp, attack: attack, decay: decay, sustain: sustain, release: release })
 
-            osc.connect(filter).connect(this.actx.destination);
+            osc.connect(oscGain).connect(filter).connect(this.actx.destination);
             osc.start(currentTime);
             lfo.start();
             osc.stop(currentTime + sustain)

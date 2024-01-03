@@ -1,6 +1,7 @@
 export interface NoteState {
     isActive: boolean;
     frequency: number;
+    type: OscillatorType;
 }
 
 export interface AdsrParams {
@@ -12,8 +13,9 @@ export interface AdsrParams {
 }
 
 export interface OscParams{
-    type: OscillatorType;
-    frequency: number;
+    type?: OscillatorType;
+    frequency?: number;
+    gain?: number;
 }
 
 export interface Params {

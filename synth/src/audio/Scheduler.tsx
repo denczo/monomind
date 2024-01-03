@@ -1,4 +1,4 @@
-import { AdsrParams, Env, NoteState } from "../types/audio.d.tsx";
+import { AdsrParams, NoteState, OscId } from "../types/audio.d.tsx";
 import { AudioEngine } from "./AudioEngine.tsx";
 
 export class Scheduler {
@@ -15,7 +15,7 @@ export class Scheduler {
     audioEngine: AudioEngine;
     currentNoteCallbacks: any[];
     observers: any[];
-    adsr: Env;
+    adsr: AdsrParams;
 
 
     private constructor(tempo: number = 120, currentNote: number = 0, nextNoteTime: number = 2.0, lookahead: number = 25.0, scheduleAheadTime: number = 0.1) {
@@ -62,6 +62,8 @@ export class Scheduler {
         // Push the note on the queue, even if we're not playing.
         this.notifyObservers();
         if (noteStates[beatNumber].isActive) {
+            //TODO: improve how to pass osc type
+            this.audioEngine.setOscParams(OscId.OSC1, {frequency: noteStates[beatNumber].frequency, type: noteStates[beatNumber].type, gain: 1})
             this.audioEngine.setAudioChain(false, this.audioEngine.adsrParams);
         }
     }
@@ -78,12 +80,11 @@ export class Scheduler {
         this.timerID = setTimeout(this.scheduler, this.lookahead);
     }
 
-    public editNote(frequency: number): void{
+    public editNote(frequency: number, type: OscillatorType): void{
         this.notifyObservers();
-        this.noteStates[this.currentNote] = {isActive: true, frequency: frequency}
+        this.noteStates[this.currentNote] = {isActive: true, frequency: frequency, type: type as OscillatorType}
         this.currentNote = (this.currentNote + 1) % this.noteStates.length;
     }
-
 
     public startScheduler(): void {
         // Start the scheduling loop after a short delay
@@ -105,7 +106,7 @@ export class Scheduler {
         this.noteStates = noteStates;
     }
 
-    public setEnv(adsr: Env){
+    public setEnv(adsr: AdsrParams){
         this.adsr = adsr;
     }
 

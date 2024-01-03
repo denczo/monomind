@@ -13,11 +13,11 @@ const Keyboard = ({ notes }) => {
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
-        audioEngine.setOscParams(OscId.OSC1, freq, waveform as OscillatorType);
+        audioEngine.setOscParams(OscId.OSC1, {frequency: freq, type: waveform as OscillatorType, gain: 1});
         audioEngine.setAudioChain(false, {attack, decay, sustain, release} as AdsrParams)
         // audioEngine.playNote(attack, sustain, release, freq);
         if (isEditing) {
-            scheduler.editNote(freq);
+            scheduler.editNote(freq, waveform as OscillatorType);
         }
     }
 

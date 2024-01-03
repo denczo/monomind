@@ -5,6 +5,7 @@ import { AudioEngine } from "../../../audio/AudioEngine.tsx";
 import { useGlobalContext } from "../../../contexts/GlobalContext.tsx";
 import { Scheduler } from "../../../audio/Scheduler.tsx";
 import "./Controls.css"
+import { OscId } from "../../../types/audio.d.tsx";
 
 const Controls = () => {
 
@@ -18,7 +19,7 @@ const Controls = () => {
     }, [bpm, freqLp, gain, scheduler])
 
     return (<div className="Controls">
-        <WfSelector />
+        <WfSelector oscId={OscId.OSC1} />
         <Slider name={"BPM " + scheduler.tempo} value={bpm} max={200} updateValue={(e) => setBpm(parseFloat(e.target.value))} />
         <Slider name={"LP " + AudioEngine.getInstance().freqLp} value={freqLp} max={2000} updateValue={(e) => setFreqLp(parseFloat(e.target.value))} />
         <Slider name={"Gain " + AudioEngine.getInstance().gain} value={gain} updateValue={(e) => setGain(parseFloat(e.target.value))} />

@@ -9,7 +9,7 @@ import './Sequencer.css'
 const Sequencer = () => {
 
 
-    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 12 }, () => ({isActive: false, frequency: 0})));
+    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 12 }, () => ({isActive: false, frequency: 0, type: 'triangle' as OscillatorType})));
     const [currentNote, setCurrentNote] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const { isEditing, setEditing } = useGlobalContext();
@@ -20,6 +20,7 @@ const Sequencer = () => {
         if(isPlaying){
             setPlaying(false);
             scheduler.stopScheduler();
+            setCurrentNote(0);
         }else{
            scheduler.startScheduler();
            setPlaying(true);

@@ -3,16 +3,16 @@ import './WfSelector.css';
 import { useGlobalContext } from '../../../contexts/GlobalContext.tsx'
 import { AudioEngine } from '../../../audio/AudioEngine.tsx';
 import Slider from '../../atoms/slider/Slider.tsx';
-import { Waveform } from '../../../types/audio.d.tsx';
+import { OscId, Waveform } from '../../../types/audio.d.tsx';
 
 
-const WfSelector = () => {
+const WfSelector = ({oscId} : {oscId: OscId}) => {
 
     const {waveform, setWaveform} = useGlobalContext();
     const audioEngine = AudioEngine.getInstance();
 
     useEffect(() => {
-        audioEngine.setWaveform(waveform);
+        audioEngine.setOscParams(oscId, {type: waveform as OscillatorType});
     }, [waveform, audioEngine]);
 
     return (
