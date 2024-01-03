@@ -28,19 +28,15 @@ const Keyboard = ({ notes }) => {
     const generateKeys = () => {
 
         return Object.entries(notes).map(([key, value], index) => {
-            const noteNumber = scheduler.noteStates[currentNote].noteNumber;
+            const { noteNumber, isActive } = scheduler.noteStates[currentNote];
             if (key.includes("#")) {
-                return <Key type={"BK"} key={index} isActive={value==noteNumber} onClick={() => handleClick(value)} />
+                return <Key type={"BK"} key={index} isActive={isActive && value==noteNumber} onClick={() => handleClick(value)} />
             } else {
-                return <Key type={"WK"} key={index} isActive={value==noteNumber} onClick={() => handleClick(value)} />
+                return <Key type={"WK"} key={index} isActive={isActive && value==noteNumber} onClick={() => handleClick(value)} />
             }
         })
     }
 
-    useEffect(() => {
-
-        console.log(scheduler.noteStates[currentNote].noteNumber)
-    },[currentNote])
 
     return (<>
         <div className="Keyboard">{generateKeys()}</div>

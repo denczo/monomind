@@ -9,7 +9,7 @@ import './Sequencer.css'
 const Sequencer = () => {
 
 
-    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 12 }, () => ({isActive: false, frequency: 0, type: 'triangle' as OscillatorType, noteNumber: 0})));
+    const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 16 }, () => ({isActive: false, frequency: 0, type: 'triangle' as OscillatorType, noteNumber: 0})));
     // const [currentNote, setCurrentNote] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const { isEditing, setEditing, currentNote, setCurrentNote } = useGlobalContext();
@@ -52,8 +52,10 @@ const Sequencer = () => {
     return (
         <div className="Sequencer">
             <Notes noteStates={noteStates} setNoteStates={setNoteStates} activeNote={currentNote} isEditing={isEditing} />
-            <button onClick={handleClick}>{isPlaying ? "Stop" : "Play"}</button>
-            <button onClick={handleEditing}>{isEditing ? "Save" : "Edit"}</button>
+            <div>
+                <button onClick={handleClick}>{isPlaying ? "Stop" : "Play"}</button>
+                <button onClick={handleEditing}>{isEditing ? "Save" : "Edit"}</button>
+            </div>
         </div>
     );
 }

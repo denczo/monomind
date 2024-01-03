@@ -11,6 +11,10 @@ export class AudioEngine {
     oscillators: Record<OscId, OscillatorNode>;
     adsrParams: AdsrParams;
 
+    analyser: AnalyserNode;
+    bufferLength: number;
+    dataArray: Uint8Array;
+
     private constructor() {
         // AudioContext requires a click event to be initialized
         window.addEventListener('click', this.initializeAudioContext);
@@ -21,14 +25,24 @@ export class AudioEngine {
         this.oscParams = {[OscId.OSC1]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1},
         [OscId.OSC2]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1},
         [OscId.LFO]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 1}};
+        // this.visualizer = AudioVisualizer.getInstance();
     }
 
     private initializeAudioContext = () => {
         if (!this.actx) {
             this.actx = new AudioContext();
+            this.initAnalyzer();
             window.removeEventListener('click', this.initializeAudioContext);
         }
     };
+
+    private initAnalyzer(): void{
+        this.analyser = this.actx.createAnalyser();
+          this.analyser.fftSize = 2048;
+          this.bufferLength = this.analyser.frequencyBinCount;
+          this.dataArray = new Uint8Array(this.bufferLength);
+          this.analyser.getByteTimeDomainData(this.dataArray);
+    }
 
     private isValidNumber(number: number): boolean {
         if (isFinite(number) && !isNaN(number)) {
@@ -82,7 +96,7 @@ export class AudioEngine {
     // sets parameters for either a filter adsr @filter.frequency or a gain adsr @gain.gain
     private setAdsrParams(audioParam: AudioParam, params: AdsrParams): void {
         const currentTime = this.actx.currentTime;
-        this.adsrParams = this.adsrParams;
+        this.adsrParams = params;
         audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(0, currentTime);
         audioParam.linearRampToValueAtTime(params.value, currentTime + params.attack);
@@ -93,6 +107,7 @@ export class AudioEngine {
     private setLfoPitchChain(adsrParams: AdsrParams): void {
 
         const { attack, decay, sustain, release } = adsrParams;
+
 
         if(this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release) ){
             const currentTime = this.actx.currentTime;
@@ -114,6 +129,7 @@ export class AudioEngine {
             this.setAdsrParams(filter.frequency, { value: this.freqLp, attack: attack, decay: decay, sustain: sustain, release: release })
 
             osc.connect(oscGain).connect(filter).connect(this.actx.destination);
+            osc.connect(this.analyser);
             osc.start(currentTime);
             lfo.start();
             osc.stop(currentTime + sustain)
@@ -130,32 +146,4 @@ export class AudioEngine {
             this.setLfoPitchChain(adsrParams);
         }
     }
-    
-
-    // public playNote(attackTime: number, oscLength: number, releaseTime: number, freq: number): void {
-
-    //     if (this.actx && this.isValidNumber(attackTime) && this.isValidNumber(oscLength) && this.isValidNumber(releaseTime)) {
-    //         const currentTime = this.actx.currentTime;
-    //         const osc = this.initOscillator(this.actx, this.waveform as OscillatorType, freq)
-    //         const lfo = this.initOscillator(this.actx, 'triangle' as OscillatorType, 2);
-    //         const lfoGain = new GainNode(this.actx, lfo);
-    //         lfoGain.gain.value = 1
-    //         // lfo.connect(lfoGain);
-
-    //         const filter = this.actx.createBiquadFilter();
-    //         filter.type = 'lowpass';
-    //         // filter.frequency.value = this.freqLp;
-    //         this.setAdsrParams(filter.frequency, { value: this.freqLp, attack: attackTime, decay: 0, sustain: oscLength, release: releaseTime })
-
-    //         // lfoGain.connect(filter.frequency);
-    //         // lfo.start();
-    //         const adsr = new GainNode(this.actx, osc);
-    //         this.setAdsrParams(adsr.gain, { value: this.gain, attack: attackTime, decay: 0, sustain: oscLength, release: releaseTime })
-    //         // adsr.connect(filter.gain);
-
-    //         osc.connect(filter).connect(this.actx.destination);
-    //         osc.start(currentTime);
-    //         osc.stop(currentTime + oscLength)
-    //     }
-    // }
 }

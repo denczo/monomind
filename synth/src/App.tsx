@@ -1,14 +1,11 @@
 import './App.css';
-import ADSR from './components/molecules/adsr/ADSR.tsx';
 // import Touchpad from './modules/ui/touchpad/Touchpad';
 import { GlobalProvider } from './contexts/GlobalContext.tsx';
 import Sequencer from './components/molecules/sequencer/Sequencer.tsx';
 import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
 import React from 'react';
-// import WfSelector from './components/molecules/wfselector/WfSelector.tsx';
 import Controls from './components/organism/controls/Controls.tsx';
-import Lfo from './components/molecules/oscillator/Lfo.tsx';
-import Osc from './components/molecules/oscillator/Osc.tsx';
+import Visualizer from './components/atoms/visualizer/Visualizer.tsx';
 
 
 
@@ -20,12 +17,13 @@ function App() {
     <GlobalProvider>
       <div className="App">
         <div className="Synth">
-        {/* <h1>MicroMind</h1> */}
+        {/* <span>MonoMind</span> */}
         <div className='SliderSection'>
         <Controls />
         </div>
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}
         <Sequencer/>
+        <Visualizer />
         <Keyboard notes={notes}/>
         </div>
       </div>

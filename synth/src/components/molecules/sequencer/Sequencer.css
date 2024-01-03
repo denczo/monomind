@@ -1,7 +1,7 @@
 .Sequencer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     /* align-items: center; */
-    padding: 10px 0px 10px 0px;
+    padding: 10px 10px 10px 10px;
 }

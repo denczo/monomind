@@ -25,7 +25,7 @@ export class Scheduler {
         this.lookahead = lookahead;
         this.scheduleAheadTime = scheduleAheadTime;
         this.scheduler = this.scheduler.bind(this);
-        this.noteStates = []
+        this.noteStates = [{isActive: false, frequency: 0, noteNumber: 0} as NoteState]
         this.audioEngine = AudioEngine.getInstance();
         this.currentNoteCallbacks = []
         this.observers = [];
