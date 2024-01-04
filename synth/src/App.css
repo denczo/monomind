@@ -4,9 +4,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+  /* background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%); */
   /* background: linear-gradient(90deg, #d53369 0%, #daae51 100%); */
-  color: black;
+  background: radial-gradient(#ffffff, #889b86);
   height: 100vh;
   user-select: none;
 
@@ -24,14 +24,30 @@
 }
 
 .Synth{
-  background: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  padding: 25px;
-  border-radius: 25px;
+  /* background: linear-gradient(to top, #dfe9f3 0%, white 100%); */
+  background: linear-gradient(to top, #1a1a1a 0%, rgb(59, 59, 59) 100%);
+
+  padding: 10px 20px 0px 20px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  /* border: 5px outset rgb(223, 223, 223); */
+  border: 5px outset rgb(66, 66, 66);
+
 }
 
 .SliderSection{
   display: flex;
   flex-direction: row;
+}
+
+#label{
+  display: flex;
+  align-self: center;
+  justify-content: end;
+  font-weight: bold;
+  font-size: large;
+  /* color: rgb(75, 75, 75) */
+  color: goldenrod;
+  
 }

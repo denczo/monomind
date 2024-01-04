@@ -17,13 +17,13 @@ function App() {
     <GlobalProvider>
       <div className="App">
         <div className="Synth">
-        {/* <span>MonoMind</span> */}
         <div className='SliderSection'>
         <Controls />
         </div>
         {/* <Touchpad width={300} height={300} wf={waveform}/> */}
         <Sequencer/>
         <Visualizer />
+        <span id='label'>MonoMind</span>
         <Keyboard notes={notes}/>
         </div>
       </div>

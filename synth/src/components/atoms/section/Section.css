@@ -1,8 +1,11 @@
 .Section{
     display: flex;
-    border: 2px solid grey;
+    /* border: 2px solid grey; */
+    border: 2px solid goldenrod;
+
     border-radius: 15px;
     margin-bottom: 10px;
     padding: 0px;
     margin-left: 5px;
+    color: goldenrod;
 }
