@@ -15,7 +15,6 @@ const Keyboard = ({ notes }) => {
         const freq = renderFrequency(noteNumber);
         audioEngine.setOscParams(OscId.OSC1, {frequency: freq, type: waveform as OscillatorType, gain: 1});
         audioEngine.setAudioChain(false, {attack, decay, sustain, release} as AdsrParams)
-        // audioEngine.playNote(attack, sustain, release, freq);
         if (isEditing) {
             scheduler.editNote(freq, waveform as OscillatorType, noteNumber);
         }
@@ -36,7 +35,6 @@ const Keyboard = ({ notes }) => {
             }
         })
     }
-
 
     return (<>
         <div className="Keyboard">{generateKeys()}</div>

@@ -3,10 +3,6 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 5px;
-    /* border-left:solid silver 3px;
-    border-right:solid silver 4px;
-    border-top:solid silver 4px; */
-
     border-left:solid goldenrod 3px;
     border-right:solid goldenrod 4px;
     border-top:solid goldenrod 4px;

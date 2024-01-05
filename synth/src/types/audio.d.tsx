@@ -33,6 +33,8 @@ export interface Params {
     freqLp: number;
     type: string[];
     currentNote: number;
+    freqLfo: number;
+    gainLfo: number;
     setAttack:  React.Dispatch<React.SetStateAction<number>>;
     setDecay:  React.Dispatch<React.SetStateAction<number>>;
     setSustain: React.Dispatch<React.SetStateAction<number>>;
@@ -45,9 +47,10 @@ export interface Params {
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
     setTypes: React.Dispatch<React.SetStateAction<string[]>>;
     setCurrentNote: React.Dispatch<React.SetStateAction<number>>;
+    setFreqLfo: React.Dispatch<React.SetStateAction<number>>;
+    setGainLfo: React.Dispatch<React.SetStateAction<number>>;
 
 }
-
 
 export enum Waveform {
     triangle = 2,

@@ -63,7 +63,7 @@ export class Scheduler {
         this.notifyObservers();
         if (noteStates[beatNumber].isActive) {
             //TODO: improve how to pass osc type
-            this.audioEngine.setOscParams(OscId.OSC1, {frequency: noteStates[beatNumber].frequency, type: noteStates[beatNumber].type, gain: 1})
+            this.audioEngine.setOscParams(OscId.OSC1, {frequency: noteStates[beatNumber].frequency, type: this.audioEngine.waveform as OscillatorType, gain: 1})
             this.audioEngine.setAudioChain(false, this.audioEngine.adsrParams);
         }
     }

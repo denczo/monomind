@@ -1,5 +1,4 @@
 import './App.css';
-// import Touchpad from './modules/ui/touchpad/Touchpad';
 import { GlobalProvider } from './contexts/GlobalContext.tsx';
 import Sequencer from './components/molecules/sequencer/Sequencer.tsx';
 import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
@@ -20,10 +19,9 @@ function App() {
         <div className='SliderSection'>
         <Controls />
         </div>
-        {/* <Touchpad width={300} height={300} wf={waveform}/> */}
         <Sequencer/>
         <Visualizer />
-        <span id='label'>MonoMind</span>
+        <span id='Label'>MonoMind</span>
         <Keyboard notes={notes}/>
         </div>
       </div>
