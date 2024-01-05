@@ -3,7 +3,6 @@
     width: 40px;
     height: 40px;
     background: radial-gradient(#474747, #000000);
-    margin-left: 5px;
     border-radius: 10px;
     border: 3px inset black;
 }

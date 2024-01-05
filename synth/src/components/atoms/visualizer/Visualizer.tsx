@@ -56,7 +56,7 @@ const Visualizer = () => {
     }, [])
 
     return (
-        <canvas id='Osc' ref={canvasRef} width={200} height={70} />
+        <canvas id='Osc' ref={canvasRef} width={400} height={70} />
     );
 };
 

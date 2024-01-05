@@ -1,6 +1,6 @@
 .Sequencer{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
+    justify-content: space-evenly;
+    padding: 10px 0px 10px 0px;
 }

@@ -34,11 +34,22 @@
   flex-direction: row;
 }
 
+#VizSection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0px 10px 0px;
+}
+
+
 #Label{
   display: flex;
-  align-self: center;
-  justify-content: end;
+  align-items: flex-end;  
   font-weight: bold;
   font-size: x-large;
   color: goldenrod;
+}
+
+.LabelPlacement{
+  display: flex;
 }

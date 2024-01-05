@@ -9,29 +9,9 @@ import './Sequencer.css'
 const Sequencer = () => {
 
     const [noteStates, setNoteStates] = useState<NoteState[]>(Array.from({ length: 16 }, () => ({isActive: false, frequency: 0, type: 'triangle' as OscillatorType, noteNumber: 0})));
-    const [isPlaying, setPlaying] = useState(false);
-    const { isEditing, setEditing, currentNote, setCurrentNote } = useGlobalContext();
+    const { isEditing, currentNote, setCurrentNote } = useGlobalContext();
 
     const scheduler = Scheduler.getInstance();
-
-    const handleClick = () => {
-        if(isPlaying){
-            setPlaying(false);
-            scheduler.stopScheduler();
-            setCurrentNote(0);
-        }else{
-           scheduler.startScheduler();
-           setPlaying(true);
-        }
-    }
-
-    const handleEditing = () => {
-        if (isEditing) {
-            setEditing(false);
-        } else {
-            setEditing(true);
-        }
-    }
 
     useEffect(() => {
 
@@ -50,10 +30,6 @@ const Sequencer = () => {
     return (
         <div className="Sequencer">
             <Notes noteStates={noteStates} setNoteStates={setNoteStates} activeNote={currentNote} isEditing={isEditing} />
-            <div>
-                <button onClick={handleClick}>{isPlaying ? "Stop" : "Play"}</button>
-                <button onClick={handleEditing}>{isEditing ? "Save" : "Edit"}</button>
-            </div>
         </div>
     );
 }

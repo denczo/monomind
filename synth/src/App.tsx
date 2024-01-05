@@ -5,6 +5,7 @@ import Keyboard from './components/molecules/keyboard/Keyboard.tsx';
 import React from 'react';
 import Controls from './components/organism/controls/Controls.tsx';
 import Visualizer from './components/atoms/visualizer/Visualizer.tsx';
+import EditCtrl from './components/molecules/sequencer/EditCtrl.tsx';
 
 
 
@@ -17,11 +18,16 @@ function App() {
       <div className="App">
         <div className="Synth">
         <div className='SliderSection'>
-        <Controls />
+          <Controls />
         </div>
         <Sequencer/>
+        <div id='VizSection'>
+        <EditCtrl />
         <Visualizer />
-        <span id='Label'>MonoMind</span>
+        <div className='LabelPlacement'>
+          <span id='Label'>MonoMind</span>
+        </div>
+        </div>
         <Keyboard notes={notes}/>
         </div>
       </div>
