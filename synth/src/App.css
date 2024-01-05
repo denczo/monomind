@@ -41,13 +41,19 @@
   padding: 10px 0px 10px 0px;
 }
 
+@import url('https://fonts.googleapis.com/css?family=MonteCarlo');
 
 #Label{
+  font-family: 'MonteCarlo', cursive;
+
   display: flex;
-  align-items: flex-end;  
+  /* align-items: flex-end;   */
+  align-items: center;
   font-weight: bold;
-  font-size: x-large;
+  font-size: 25pt;
   color: goldenrod;
+  padding-right: 30px;
+  /* background-color: aqua; */
 }
 
 .LabelPlacement{
