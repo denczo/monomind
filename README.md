@@ -1,12 +1,21 @@
-# JBLASTER
+# MonoMind
 
-JBLASTER is a synthesizer written with ReactJS and Javascript using the Web Audio API.
+MonoMind is a synthesizer written with ReactJS and Typescript using the Web Audio API. Like it's name suggest it is a monophonic synthesizer with a 16 step sequencer that let you progam any kind of melody.
 
-In it's current version it comes with a touchpad that manipulates the frequency of a chosen waveform as well as the cuttoff frequency of a lowpass filter. It also has an ADSR envelope generator. 
+![alt text](./synth/public/MonoMind.jpeg)
 
-![alt text](./synth/public/jblaster.jpeg)
 
-Live demo: https://denczo.github.io/jblaster/
+### Technical features:
+
+- 16 Step sequencer
+- ADSR Envelope
+- Main Oscillator with Triangle, Sawtooth and Squarewave
+- LFO to control pitch
+- Cutoff Filter
+- Audio Visualizer
+- 25 Key Keyboard
+
+<!-- Live demo: https://denczo.github.io/jblaster/ -->
 
 
 
