@@ -8,7 +8,7 @@ import "./Osc.css"
 
 const Osc = () => {
     const { oscParams, setOscParams } = useGlobalContext();
-    const { gain } = oscParams[OscId.OSC];
+    const { gain, type, frequency } = oscParams[OscId.OSC];
 
     const updateGain = (index: OscId, newValue: number) => {
         setOscParams((prevItems) => {
@@ -19,7 +19,7 @@ const Osc = () => {
     };
 
     useEffect(() => {
-        AudioEngine.getInstance().setGain(gain);
+        AudioEngine.getInstance().setOscParams(OscId.OSC, {type: type, gain: gain, frequency: frequency})
     }, [gain])
 
 

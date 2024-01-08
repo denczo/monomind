@@ -7,7 +7,6 @@ export class AudioEngine {
     lfoWf: string;
 
     freqLp: number;
-    gain: number;
     oscParams: Record<OscId, OscParams>;
     oscillators: Record<OscId, OscillatorNode>;
     adsrParams: AdsrParams;
@@ -21,10 +20,11 @@ export class AudioEngine {
         window.addEventListener('click', this.initializeAudioContext);
         console.log("Initialized")
         this.freqLp = 500;
-        this.gain = 0.2;
-        this.adsrParams = {value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5}
-        this.oscParams = {[OscId.OSC]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2},
-        [OscId.LFO]:{type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}};
+        this.adsrParams = { value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5 }
+        this.oscParams = {
+            [OscId.OSC]: { type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2 },
+            [OscId.LFO]: { type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2 }
+        };
     }
 
     private initializeAudioContext = () => {
@@ -35,12 +35,12 @@ export class AudioEngine {
         }
     };
 
-    private initAnalyzer(): void{
+    private initAnalyzer(): void {
         this.analyser = this.actx.createAnalyser();
-          this.analyser.fftSize = 2048;
-          this.bufferLength = this.analyser.frequencyBinCount;
-          this.dataArray = new Uint8Array(this.bufferLength);
-          this.analyser.getByteTimeDomainData(this.dataArray);
+        this.analyser.fftSize = 2048;
+        this.bufferLength = this.analyser.frequencyBinCount;
+        this.dataArray = new Uint8Array(this.bufferLength);
+        this.analyser.getByteTimeDomainData(this.dataArray);
     }
 
     private isValidNumber(number: number): boolean {
@@ -64,15 +64,17 @@ export class AudioEngine {
         this.freqLp = freq;
     }
 
-    public setGain(gain: number): void {
-        this.gain = gain;
-    }
-
-    private initOscillator(oscParams: OscParams): OscillatorNode {
-        const osc = this.actx.createOscillator();
+    private initOscillator(actx: AudioContext, oscParams: OscParams): OscillatorNode {
+        const osc = actx.createOscillator();
         osc.type = oscParams.type;
         osc.frequency.value = oscParams.frequency;
         return osc;
+    }
+
+    private initGainNode(actx: AudioContext, gain: number, osc: OscillatorNode): GainNode {
+        const gainNode = new GainNode(actx, osc);
+        gainNode.gain.value = gain;
+        return gainNode;
     }
 
     public setOscParams(oscId: OscId, oscParams: OscParams): void {
@@ -84,7 +86,7 @@ export class AudioEngine {
         }
     }
 
-    public setAdsr(params: AdsrParams): void{
+    public setAdsr(params: AdsrParams): void {
         this.adsrParams = params;
     }
 
@@ -105,25 +107,61 @@ export class AudioEngine {
         const { attack, decay, sustain, release } = adsrParams;
 
 
-        if(this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release) ){
+        if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
             const currentTime = this.actx.currentTime;
 
-            const osc = this.initOscillator(this.oscParams[OscId.OSC]);
-            const oscGain = new GainNode(this.actx, osc);
-            oscGain.gain.value = this.oscParams[OscId.OSC].gain;
+            const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
+            const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
 
-            const lfo = this.initOscillator(this.oscParams[OscId.LFO]);
-            // lfo.frequency.value = this.oscParams[OscId.LFO].frequency;
-            const lfoGain = new GainNode(this.actx, lfo);
-            lfoGain.gain.value = this.oscParams[OscId.LFO].gain;
+            const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
+            const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
+
+            // lfo.connect(lfoGain);
+            // lfoGain.connect(osc.frequency);
+            // lfoGain.connect(lfo.frequency);
+
+            const filter = this.actx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = this.freqLp
+            // lfo.connect(filter.frequency);
+
+            lfo.connect(oscGain.gain);
+            this.setAdsrParams(oscGain.gain, { value: this.oscParams[OscId.OSC].gain, attack: attack, decay: decay, sustain: sustain, release: release })
+            osc.connect(oscGain).connect(filter).connect(this.actx.destination);
+            // lfo.connect(filter.gain);
+            // console.log(lfo.frequency.value)
+
+
+            osc.connect(this.analyser);
+            osc.start(currentTime);
+            lfo.start();
+            console.log(lfo.frequency.value, lfoGain.gain.value, oscGain.gain.value)
+
+            osc.stop(currentTime + sustain)
+        }
+    };
+
+    // osc-gadsr-lfo-filter-dest
+    private setLfoFilterchain(adsrParams: AdsrParams): void {
+        const { attack, decay, sustain, release } = adsrParams;
+
+        if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
+            const currentTime = this.actx.currentTime;
+
+            const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
+            const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
+
+            const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
+            const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
+
+            const filter = this.actx.createBiquadFilter();
+            filter.type = 'lowpass';
 
             lfo.connect(lfoGain);
             lfoGain.connect(osc.frequency);
 
-            const filter = this.actx.createBiquadFilter();
-            filter.type = 'lowpass';
             this.setAdsrParams(filter.frequency, { value: this.freqLp, attack: attack, decay: decay, sustain: sustain, release: release })
-            
+
             osc.connect(oscGain).connect(filter).connect(this.actx.destination);
             osc.connect(this.analyser);
             osc.start(currentTime);
@@ -132,14 +170,11 @@ export class AudioEngine {
         }
     };
 
-    // osc-gadsr-lfo-filter-dest
-    private setLfoFilterchain(): void{};
-
-    public setAudioChain(lfo: boolean, adsrParams: AdsrParams): void{
-        if(lfo){
-            this.setLfoFilterchain();
-        }else{
-            this.setLfoPitchChain(adsrParams);
+    public setAudioChain(lfo: boolean, adsrParams: AdsrParams): void {
+        if (lfo) {
+            this.setLfoFilterchain(adsrParams);
+        } else {
+            this.setLfoFilterchain(adsrParams);
         }
     }
 }

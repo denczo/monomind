@@ -5,6 +5,7 @@ import { useGlobalContext } from '../../../contexts/GlobalContext.tsx';
 import WfSelector from '../wfselector/WfSelector.tsx';
 import { OscId } from '../../../types/audio.d.tsx';
 import "./Osc.css"
+import Switch from '../../atoms/switch/Switch.tsx';
 
 const Lfo = () => {
     const { oscParams, setOscParams } = useGlobalContext();
@@ -35,6 +36,7 @@ const Lfo = () => {
             <WfSelector oscId={OscId.LFO}/>
             <Slider name={"Freq "} value={frequency} max={20} updateValue={(e) => updateFreq(OscId.LFO, parseFloat(e.target.value))} />
             <Slider name={"Gain "} value={gain} max={30} updateValue={(e) => updateGain(OscId.LFO, parseFloat(e.target.value))} />
+            <Switch />
         </div>
     );
 }
