@@ -16,6 +16,7 @@ const Controls = () => {
         <Section name={"LFO"} children={<Lfo/>}/>
         <Section name={"FILTER"} children={<Filter />}/>
         <Section name={"SEQ"} children={<SpeedCtrl />}/>
+        {/* <Section name={"REVERB"} children={null} /> */}
     </div>);
 }
 

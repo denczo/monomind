@@ -15,9 +15,9 @@ export interface AdsrParams {
 }
 
 export interface OscParams{
-    type?: OscillatorType;
-    frequency?: number;
-    gain?: number;
+    type: OscillatorType;
+    frequency: number;
+    gain: number;
 }
 
 export interface Params {
@@ -32,6 +32,7 @@ export interface Params {
     waveform: string;
     freqLp: number;
     type: string[];
+    oscParams: OscParams[];
     currentNote: number;
     freqLfo: number;
     gainLfo: number;
@@ -45,11 +46,11 @@ export interface Params {
     setBpm: React.Dispatch<React.SetStateAction<number>>;
     setWaveform: React.Dispatch<React.SetStateAction<string>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
-    setTypes: React.Dispatch<React.SetStateAction<string[]>>;
     setCurrentNote: React.Dispatch<React.SetStateAction<number>>;
     setFreqLfo: React.Dispatch<React.SetStateAction<number>>;
     setGainLfo: React.Dispatch<React.SetStateAction<number>>;
-
+    setType: React.Dispatch<React.SetStateAction<string[]>>;
+    setOscParams: React.Dispatch<React.SetStateAction<OscParams[]>>;
 }
 
 export enum Waveform {
@@ -59,7 +60,6 @@ export enum Waveform {
 }
 
 export enum OscId {
-    OSC1 = 0,
-    OSC2 = 1,
-    LFO = 2
+    OSC = 0,
+    LFO = 1
 }

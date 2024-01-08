@@ -13,7 +13,7 @@ const SpeedCtrl = () => {
     }, [bpm, scheduler])
 
     return (
-        <Slider name={"Bpm"} value={bpm} max={200} updateValue={(e) => setBpm(parseFloat(e.target.value))} />
+        <Slider name={"Bpm"} value={bpm} max={400} updateValue={(e) => setBpm(parseFloat(e.target.value))} />
    );
 }
 

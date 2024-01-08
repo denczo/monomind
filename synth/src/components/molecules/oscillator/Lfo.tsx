@@ -7,17 +7,34 @@ import { OscId } from '../../../types/audio.d.tsx';
 import "./Osc.css"
 
 const Lfo = () => {
-    const { freqLfo, setFreqLfo, gainLfo, setGainLfo } = useGlobalContext();
+    const { oscParams, setOscParams } = useGlobalContext();
+    const { frequency, gain, type } = oscParams[OscId.LFO];
+
+    const updateFreq = (index: OscId, newValue: number) => {
+        setOscParams((prevItems) => {
+          const updatedItems = [...prevItems];
+          updatedItems[index].frequency = newValue;
+          return updatedItems;
+        });
+    };
+
+    const updateGain = (index: OscId, newValue: number) => {
+        setOscParams((prevItems) => {
+          const updatedItems = [...prevItems];
+          updatedItems[index].gain = newValue;
+          return updatedItems;
+        });
+    };
 
     useEffect(() => {
-        AudioEngine.getInstance().setOscParams(OscId.LFO, {gain: gainLfo, frequency: freqLfo})
-    }, [freqLfo, gainLfo])
+        AudioEngine.getInstance().setOscParams(OscId.LFO, {gain: gain, frequency: frequency, type: type})
+    }, [type, gain, frequency])
 
     return (
         <div className="Osc">
             <WfSelector oscId={OscId.LFO}/>
-            <Slider name={"Freq "} value={freqLfo} max={20} updateValue={(e) => setFreqLfo(parseFloat(e.target.value))} />
-            <Slider name={"Gain "} value={gainLfo} max={30} updateValue={(e) => setGainLfo(parseFloat(e.target.value))} />
+            <Slider name={"Freq "} value={frequency} max={20} updateValue={(e) => updateFreq(OscId.LFO, parseFloat(e.target.value))} />
+            <Slider name={"Gain "} value={gain} max={30} updateValue={(e) => updateGain(OscId.LFO, parseFloat(e.target.value))} />
         </div>
     );
 }

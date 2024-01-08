@@ -7,8 +7,16 @@ import { OscId } from '../../../types/audio.d.tsx';
 import "./Osc.css"
 
 const Osc = () => {
-    const { gain, setGain } = useGlobalContext();
+    const { oscParams, setOscParams } = useGlobalContext();
+    const { gain } = oscParams[OscId.OSC];
 
+    const updateGain = (index: OscId, newValue: number) => {
+        setOscParams((prevItems) => {
+          const updatedItems = [...prevItems];
+          updatedItems[index].gain = newValue;
+          return updatedItems;
+        });
+    };
 
     useEffect(() => {
         AudioEngine.getInstance().setGain(gain);
@@ -17,8 +25,8 @@ const Osc = () => {
 
     return (
         <div className="Osc">
-            <WfSelector oscId={OscId.OSC1}/>
-            <Slider name={"Gain"} value={gain} updateValue={(e) => setGain(parseFloat(e.target.value))} />
+            <WfSelector oscId={OscId.OSC}/>
+            <Slider name={"Gain"} value={gain} updateValue={(e) => updateGain(OscId.OSC, parseFloat(e.target.value))} />
         </div>
     );
 }

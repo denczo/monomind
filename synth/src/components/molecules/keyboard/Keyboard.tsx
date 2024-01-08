@@ -9,14 +9,15 @@ import { AdsrParams, OscId } from "../../../types/audio.d.tsx";
 const Keyboard = ({ notes }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, decay, sustain, release, isEditing, waveform, currentNote } = useGlobalContext();
+    const { attack, decay, sustain, release, isEditing, currentNote, oscParams } = useGlobalContext();
 
     const handleClick = (noteNumber) => {
         const freq = renderFrequency(noteNumber);
-        audioEngine.setOscParams(OscId.OSC1, {frequency: freq, type: waveform as OscillatorType, gain: 1});
+        const { type, gain } = oscParams[OscId.OSC];
+        audioEngine.setOscParams(OscId.OSC, {frequency: freq, type: type, gain: gain});
         audioEngine.setAudioChain(false, {attack, decay, sustain, release} as AdsrParams)
         if (isEditing) {
-            scheduler.editNote(freq, waveform as OscillatorType, noteNumber);
+            scheduler.editNote(freq, type, noteNumber);
         }
     }
 

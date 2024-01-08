@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Params } from '../types/audio.d';
+import { Params, OscParams, OscId } from '../types/audio.d';
 
 const GlobalContext = createContext<Params>({
     attack: 0,
@@ -15,6 +15,8 @@ const GlobalContext = createContext<Params>({
     currentNote: 0,
     freqLfo: 5,
     gainLfo: 0,
+    oscParams: [{type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}, {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}],
+    type: ['sawtooth', 'sawtooth', 'triangle'],
     setAttack: function (value: React.SetStateAction<number>): void {
         throw new Error('Function not implemented.');
     },
@@ -54,6 +56,12 @@ const GlobalContext = createContext<Params>({
     setGainLfo: function (value: React.SetStateAction<number>): void {
         throw new Error('Function not implemented.');
     },
+    setType: function (value: React.SetStateAction<string[]>): void {
+        throw new Error('Function not implemented.');
+    },
+    setOscParams: function (value: React.SetStateAction<any[]>): void {
+        throw new Error('Function not implemented.');
+    },
 });
 
 export function GlobalProvider({ children }){
@@ -71,6 +79,12 @@ export function GlobalProvider({ children }){
     const [currentNote, setCurrentNote] = useState(0);
     const [freqLfo, setFreqLfo] = useState(0);
     const [gainLfo, setGainLfo] = useState(0);
+    const [oscParams, setOscParams] = useState<OscParams[]>([
+        {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}, 
+        {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}]);
+    const [type, setType] = useState<string[]>([
+         'sawtooth',
+         'triangle'])
 
 
     return (
@@ -88,6 +102,8 @@ export function GlobalProvider({ children }){
             currentNote,
             freqLfo,
             gainLfo,
+            type,
+            oscParams,
             setAttack,
             setDecay,
             setSustain,
@@ -100,7 +116,9 @@ export function GlobalProvider({ children }){
             setFreqLp,
             setCurrentNote,
             setFreqLfo,
-            setGainLfo
+            setGainLfo,
+            setType,
+            setOscParams,
         }}>
             {children}
         </GlobalContext.Provider>

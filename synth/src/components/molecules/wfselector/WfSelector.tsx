@@ -7,14 +7,24 @@ import { OscId, Waveform } from '../../../types/audio.d.tsx';
 
 const WfSelector = ({oscId} : {oscId: OscId}) => {
 
-    const {waveform, setWaveform} = useGlobalContext();
+    const {oscParams, setOscParams, type} = useGlobalContext();
     const audioEngine = AudioEngine.getInstance();
 
-    useEffect(() => {
-        audioEngine.setOscParams(oscId, {type: waveform as OscillatorType});
-        audioEngine.setWaveform(waveform);
 
-    }, [waveform, audioEngine]);
+    const updateItem = (index: OscId, newValue: string) => {
+        setOscParams((prevItems) => {
+          const updatedItems = [...prevItems];
+          updatedItems[index].type = newValue as OscillatorType;
+          return updatedItems;
+        });
+      };
+
+    useEffect(() => {
+        if(oscParams[oscId]?.frequency !== undefined && oscParams[oscId]?.type !== undefined && oscParams[oscId]?.gain !== undefined){
+        const {type, frequency, gain} = oscParams[oscId];
+            audioEngine.setOscParams(oscId, {type: type, frequency: frequency, gain: gain});
+        }
+    }, [oscParams, audioEngine]);
 
     return (
         <div className="WfSelector">
@@ -23,7 +33,7 @@ const WfSelector = ({oscId} : {oscId: OscId}) => {
                 <span>Saw</span>
                 <span>Squ</span>
             </div>
-            <Slider max={2} step={1} name={""} value={undefined} updateValue={(e) => setWaveform(Waveform[e.target.value])} />
+            <Slider max={2} step={1} name={""} value={undefined} updateValue={(e) => updateItem(oscId, Waveform[e.target.value])} />
         </div>
     );
 }
