@@ -172,9 +172,9 @@ export class AudioEngine {
 
     public setAudioChain(lfo: boolean, adsrParams: AdsrParams): void {
         if (lfo) {
-            this.setLfoFilterchain(adsrParams);
+            this.setLfoPitchChain(adsrParams);
         } else {
-            this.setLfoFilterchain(adsrParams);
+            this.setLfoPitchChain(adsrParams);
         }
     }
 }
