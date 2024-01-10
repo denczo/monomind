@@ -135,7 +135,7 @@ export class AudioEngine {
             osc.connect(this.analyser);
             osc.start(currentTime);
             lfo.start();
-            console.log(lfo.frequency.value, lfoGain.gain.value, oscGain.gain.value)
+            // console.log(lfo.frequency.value, lfoGain.gain.value, oscGain.gain.value)
 
             osc.stop(currentTime + sustain)
         }

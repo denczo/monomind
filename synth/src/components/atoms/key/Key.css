@@ -19,10 +19,12 @@
 
 .BK:hover{
     height: 70px;
+    border-bottom: solid 5px  rgb(90, 90, 90);;
 }
 
 .WK:hover{
     height: 115px;
+    border-bottom: solid 5px  rgb(90, 90, 90);;
 }
 
 .BK.active{
