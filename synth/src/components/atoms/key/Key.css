@@ -1,4 +1,4 @@
-.WK{
+.WK {
     display: flex;
     width: 50px;
     background-color: white;
@@ -7,7 +7,7 @@
     border-radius: 3px;
 }
 
-.BK{
+.BK {
     display: flex;
     width: 30px;
     background-color: black;
@@ -17,20 +17,21 @@
     border-radius: 3px;
 }
 
-.BK:hover{
+.BK:hover {
     height: 70px;
-    border-bottom: solid 5px  rgb(90, 90, 90);;
 }
 
-.WK:hover{
+.WK:hover {
     height: 115px;
-    border-bottom: solid 5px  rgb(90, 90, 90);;
+    border-bottom: solid 5px rgb(90, 90, 90);
 }
 
-.BK.active{
-    background: lightskyblue;
+.BK.active {
+    background-color: lightskyblue;
+    transition: 0.1s linear;
 }
 
-.WK.active{
-    background: lightskyblue;
+.WK.active {
+    background-color: lightskyblue;
+    transition: 0.1s linear;
 }

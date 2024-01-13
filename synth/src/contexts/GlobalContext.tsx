@@ -15,8 +15,8 @@ const GlobalContext = createContext<Params>({
     currentNote: 0,
     freqLfo: 5,
     gainLfo: 0,
-    oscParams: [{type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}, {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}],
-    type: ['sawtooth', 'sawtooth', 'triangle'],
+    oscParams: [{type: 'sawtooth' as OscillatorType, frequency: 0, gain: 0.2}, {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}],
+    type: ['sawtooth', 'triangle'],
     setAttack: function (value: React.SetStateAction<number>): void {
         throw new Error('Function not implemented.');
     },
@@ -80,7 +80,7 @@ export function GlobalProvider({ children }){
     const [freqLfo, setFreqLfo] = useState(0);
     const [gainLfo, setGainLfo] = useState(0);
     const [oscParams, setOscParams] = useState<OscParams[]>([
-        {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}, 
+        {type: 'sawtooth' as OscillatorType, frequency: 0, gain: 0.2}, 
         {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}]);
     const [type, setType] = useState<string[]>([
          'sawtooth',
