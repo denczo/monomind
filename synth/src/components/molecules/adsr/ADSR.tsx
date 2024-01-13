@@ -8,28 +8,18 @@ const ADSR = () => {
 
   const audioEngine = AudioEngine.getInstance();
 
-  const {
-    attack,
-    decay,
-    sustain,
-    release,
-    gain,
-    setAttack,
-    setDecay,
-    setSustain,
-    setRelease,
-  } = useGlobalContext();
+  const { adsrParams } = useGlobalContext();
 
   useEffect(() => {
 
-    audioEngine.setAdsr({value: gain, attack, decay, sustain, release})
-  }, [attack, decay, sustain, release, audioEngine])
+    audioEngine.setAdsr(adsrParams)
+  }, [adsrParams, audioEngine])
 
   return (<div className='ADSR'>
-    <Slider name={"Attack"} value={attack} updateValue={(e) => setAttack(parseFloat(e.target.value))}/>
-    <Slider name={"Decay"} value={decay} updateValue={(e) => setDecay(parseFloat(e.target.value))}/>
-    <Slider name={"Sustain"} value={sustain} updateValue={(e) => setSustain(parseFloat(e.target.value))}/>
-    <Slider name={"Release"} value={release} updateValue={(e) => setRelease(parseFloat(e.target.value))}/>
+    <Slider name={"Attack"} value={adsrParams.attack} updateValue={(e) => adsrParams.setAttack(parseFloat(e.target.value))}/>
+    <Slider name={"Decay"} value={adsrParams.decay} updateValue={(e) => adsrParams.setDecay(parseFloat(e.target.value))}/>
+    <Slider name={"Sustain"} value={adsrParams.sustain} updateValue={(e) => adsrParams.setSustain(parseFloat(e.target.value))}/>
+    <Slider name={"Release"} value={adsrParams.release} updateValue={(e) => adsrParams.setRelease(parseFloat(e.target.value))}/>
   </div>
   );
 };

@@ -9,7 +9,7 @@ import { AdsrParams, OscId } from "../../../types/audio.d.tsx";
 const Keyboard = ({ notes, keyMap }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { attack, decay, sustain, release, isEditing, currentNote, oscParams } = useGlobalContext();
+    const { adsrParams, isEditing, currentNote, oscParams } = useGlobalContext();
     const [keyNoteNumber, setKeyNoteNumber] = useState(0);
     const { noteNumber, isActive } = scheduler.noteStates[currentNote];
     const [isKeyDown, setKeyDown] = useState(true);
@@ -18,7 +18,7 @@ const Keyboard = ({ notes, keyMap }) => {
         const freq = renderFrequency(noteNumber);
         const { type, gain } = oscParams[OscId.OSC];
         audioEngine.setOscParams(OscId.OSC, { frequency: freq, type: type, gain: gain });
-        audioEngine.setAudioChain(false, { attack, decay, sustain, release } as AdsrParams)
+        audioEngine.setAudioChain(false, adsrParams)
         // scheduler.noteStates[currentNote].isActive = false;
         if (isEditing) {
             scheduler.editNote(freq, type, noteNumber);
@@ -65,7 +65,7 @@ const Keyboard = ({ notes, keyMap }) => {
 
         };
     // well, this definitely needs improvement, e.g. adsr as object
-    }, [isKeyDown]);
+    }, [adsrParams, isKeyDown]);
 
     return (<>
         <div className="Keyboard">{generateKeys()}</div>

@@ -7,7 +7,7 @@ import { OscId, Waveform } from '../../../types/audio.d.tsx';
 
 const WfSelector = ({oscId} : {oscId: OscId}) => {
 
-    const {oscParams, setOscParams, type} = useGlobalContext();
+    const {oscParams, setOscParams} = useGlobalContext();
     const audioEngine = AudioEngine.getInstance();
 
 
