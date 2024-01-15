@@ -96,9 +96,15 @@ export class AudioEngine {
         this.adsrParams = params;
         audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(0.1, currentTime);
-        audioParam.linearRampToValueAtTime(params.value, currentTime + params.attack);
+        audioParam.linearRampToValueAtTime(this.oscParams[OscId.OSC].gain, currentTime + params.attack);
+        audioParam.setTargetAtTime(params.sustain * this.oscParams[OscId.OSC].gain, currentTime + params.attack, params.decay
+        );
+        
+        // audioParam.linearRampToValueAtTime(params.sustain, currentTime + params.decay);
+
+
         // console.log(params.sustain + params.release)
-        audioParam.linearRampToValueAtTime(0, currentTime + params.sustain + params.release)
+        // audioParam.linearRampToValueAtTime(0, currentTime + params.sustain + params.release)
     }
 
     // osc-fadsr-lfo-gain-dest
@@ -126,7 +132,7 @@ export class AudioEngine {
             // lfo.connect(filter.frequency);
 
             lfo.connect(oscGain.gain);
-            this.setAdsrParams(oscGain.gain, { value: this.oscParams[OscId.OSC].gain, attack: attack, decay: decay, sustain: sustain, release: release })
+            this.setAdsrParams(oscGain.gain, this.adsrParams)
             osc.connect(oscGain).connect(filter).connect(this.actx.destination);
             // lfo.connect(filter.gain);
             // console.log(lfo.frequency.value)
@@ -137,7 +143,7 @@ export class AudioEngine {
             lfo.start();
             // console.log(lfo.frequency.value, lfoGain.gain.value, oscGain.gain.value)
 
-            osc.stop(currentTime + sustain)
+            osc.stop(currentTime + release)
         }
     };
 
