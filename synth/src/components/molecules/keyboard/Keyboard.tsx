@@ -18,7 +18,8 @@ const Keyboard = ({ notes, keyMap }) => {
         const freq = renderFrequency(noteNumber);
         const { type, gain } = oscParams[OscId.OSC];
         audioEngine.setOscParams(OscId.OSC, { frequency: freq, type: type, gain: gain });
-        audioEngine.setAudioChain(false, adsrParams)
+        audioEngine.onEnterAudio(adsrParams);
+        audioEngine.onReleaseAudio(adsrParams);
         // scheduler.noteStates[currentNote].isActive = false;
         if (isEditing) {
             scheduler.editNote(freq, type, noteNumber);
@@ -52,6 +53,7 @@ const Keyboard = ({ notes, keyMap }) => {
 
     const handleKeyRelease = () => {
         console.log("KEY UP")
+        audioEngine.onReleaseAudio(adsrParams);
         setKeyDown(false);
     }
 
@@ -64,7 +66,7 @@ const Keyboard = ({ notes, keyMap }) => {
             window.removeEventListener("keyup", handleKeyRelease);
 
         };
-    // well, this definitely needs improvement, e.g. adsr as object
+    
     }, [adsrParams, isKeyDown]);
 
     return (<>

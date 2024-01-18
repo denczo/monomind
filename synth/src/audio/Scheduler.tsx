@@ -64,7 +64,9 @@ export class Scheduler {
         const { type, gain } = this.audioEngine.oscParams[OscId.OSC];
         if (noteStates[beatNumber].isActive) {
             this.audioEngine.setOscParams(OscId.OSC, {frequency: noteStates[beatNumber].frequency, type: type, gain: gain})
-            this.audioEngine.setAudioChain(false, this.audioEngine.adsrParams);
+            this.audioEngine.onEnterAudio(this.audioEngine.adsrParams);
+            this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
+
         }
     }
 

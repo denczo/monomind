@@ -14,12 +14,17 @@ export class AudioEngine {
     analyser: AnalyserNode;
     bufferLength: number;
     dataArray: Uint8Array;
+    oscStack: OscillatorNode[];
+    gainStack: GainNode[];
+
 
     private constructor() {
         // AudioContext requires a click event to be initialized
         window.addEventListener('click', this.initializeAudioContext);
         console.log("Initialized")
         this.freqLp = 500;
+        this.oscStack = [];
+        this.gainStack = [];
         this.adsrParams = { value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5 }
         this.oscParams = {
             [OscId.OSC]: { type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2 },
@@ -90,65 +95,41 @@ export class AudioEngine {
         this.adsrParams = params;
     }
 
+
     // sets parameters for either a filter adsr @filter.frequency or a gain adsr @gain.gain
-    private setAdsrParams(audioParam: AudioParam, params: AdsrParams): void {
+    private setAdsParams(audioParam: AudioParam, params: AdsrParams): void {
         const currentTime = this.actx.currentTime;
         this.adsrParams = params;
         audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(0.1, currentTime);
         audioParam.linearRampToValueAtTime(this.oscParams[OscId.OSC].gain, currentTime + params.attack);
-        audioParam.setTargetAtTime(params.sustain * this.oscParams[OscId.OSC].gain, currentTime + params.attack, params.decay
-        );
-        
-        // audioParam.linearRampToValueAtTime(params.sustain, currentTime + params.decay);
-
-
-        // console.log(params.sustain + params.release)
-        // audioParam.linearRampToValueAtTime(0, currentTime + params.sustain + params.release)
+        audioParam.setTargetAtTime(params.sustain * this.oscParams[OscId.OSC].gain, currentTime + params.attack, params.decay);
     }
 
-    // osc-fadsr-lfo-gain-dest
-    private setLfoPitchChain(adsrParams: AdsrParams): void {
+    private setReleaseParam(audioParam: AudioParam, params: AdsrParams): void{
+        const currentTime = this.actx.currentTime;
+        audioParam.linearRampToValueAtTime(0, currentTime + params.release);
+    }
 
-        const { attack, decay, sustain, release } = adsrParams;
-
-
-        if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
-            const currentTime = this.actx.currentTime;
-
-            const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
-            const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
-
-            const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
-            const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
-
-            // lfo.connect(lfoGain);
-            // lfoGain.connect(osc.frequency);
-            // lfoGain.connect(lfo.frequency);
-
-            const filter = this.actx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.value = this.freqLp
-            // lfo.connect(filter.frequency);
-
-            lfo.connect(oscGain.gain);
-            this.setAdsrParams(oscGain.gain, this.adsrParams)
-            osc.connect(oscGain).connect(filter).connect(this.actx.destination);
-            // lfo.connect(filter.gain);
-            // console.log(lfo.frequency.value)
-
-
-            osc.connect(this.analyser);
-            osc.start(currentTime);
-            lfo.start();
-            // console.log(lfo.frequency.value, lfoGain.gain.value, oscGain.gain.value)
-
+    private stopOsc(release: number): void{
+        const currentTime = this.actx.currentTime;
+        const osc = this.oscStack.pop();
+        if(osc){
             osc.stop(currentTime + release)
         }
-    };
+    }
 
-    // osc-gadsr-lfo-filter-dest
-    private setLfoFilterchain(adsrParams: AdsrParams): void {
+    public onReleaseAudio(adsrParams: AdsrParams): void{
+        const osc = this.oscStack.pop();
+        const gain = this.gainStack.pop();
+        if(osc && gain){
+            const currentTime = this.actx.currentTime;
+            gain.gain.linearRampToValueAtTime(0, currentTime + adsrParams.release);
+            osc.stop(currentTime + adsrParams.release)
+        }
+    }
+
+    public onEnterAudio(adsrParams: AdsrParams): void{
         const { attack, decay, sustain, release } = adsrParams;
 
         if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
@@ -156,31 +137,38 @@ export class AudioEngine {
 
             const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
             const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
+            osc.connect(this.analyser);
 
+            this.oscStack.push(osc);
+            this.gainStack.push(oscGain);
             const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
             const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
 
             const filter = this.actx.createBiquadFilter();
             filter.type = 'lowpass';
+            
+            if(true){
+                // setup for vibrato effect, gadsr
+                this.setAdsParams(oscGain.gain, this.adsrParams)
+                filter.frequency.value = this.freqLp
+                lfo.connect(lfoGain);  
+                lfoGain.connect(osc.frequency);
+            }else{
+                // setup for vibrato effect, fadsr
+                this.setAdsParams(filter.frequency, this.adsrParams);
+                // filter.connect(osc.frequency)
+                // lfoGain.fgain.value = 1000;
+                // filter.frequency.value = this.freqLp
+                console.log(filter.Q, filter.frequency)
+                // filter.frequency.vadlue = 1000;
 
-            lfo.connect(lfoGain);
-            lfoGain.connect(osc.frequency);
-
-            this.setAdsrParams(filter.frequency, { value: this.freqLp, attack: attack, decay: decay, sustain: sustain, release: release })
+                lfo.connect(lfoGain);  
+                lfoGain.connect(osc.frequency);
+            }
 
             osc.connect(oscGain).connect(filter).connect(this.actx.destination);
-            osc.connect(this.analyser);
-            osc.start(currentTime);
             lfo.start();
-            osc.stop(currentTime + sustain)
-        }
-    };
-
-    public setAudioChain(lfo: boolean, adsrParams: AdsrParams): void {
-        if (lfo) {
-            this.setLfoPitchChain(adsrParams);
-        } else {
-            this.setLfoPitchChain(adsrParams);
+            osc.start(currentTime);
         }
     }
 }
