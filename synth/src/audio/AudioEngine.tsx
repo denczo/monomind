@@ -102,8 +102,8 @@ export class AudioEngine {
         this.adsrParams = params;
         audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(0.1, currentTime);
-        audioParam.linearRampToValueAtTime(this.oscParams[OscId.OSC].gain, currentTime + params.attack);
-        audioParam.setTargetAtTime(params.sustain * this.oscParams[OscId.OSC].gain, currentTime + params.attack, params.decay);
+        audioParam.linearRampToValueAtTime(audioParam.value, currentTime + params.attack);
+        audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
     }
 
     private setReleaseParam(audioParam: AudioParam, params: AdsrParams): void{
@@ -147,7 +147,7 @@ export class AudioEngine {
             const filter = this.actx.createBiquadFilter();
             filter.type = 'lowpass';
             
-            if(true){
+            if(false){
                 // setup for vibrato effect, gadsr
                 this.setAdsParams(oscGain.gain, this.adsrParams)
                 filter.frequency.value = this.freqLp
@@ -156,12 +156,7 @@ export class AudioEngine {
             }else{
                 // setup for vibrato effect, fadsr
                 this.setAdsParams(filter.frequency, this.adsrParams);
-                // filter.connect(osc.frequency)
-                // lfoGain.fgain.value = 1000;
-                // filter.frequency.value = this.freqLp
-                console.log(filter.Q, filter.frequency)
-                // filter.frequency.vadlue = 1000;
-
+                filter.frequency.value = this.freqLp
                 lfo.connect(lfoGain);  
                 lfoGain.connect(osc.frequency);
             }
