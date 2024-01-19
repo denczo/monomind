@@ -24,7 +24,7 @@ const WfSelector = ({oscId} : {oscId: OscId}) => {
         const {type, frequency, gain} = oscParams[oscId];
             audioEngine.setOscParams(oscId, {type: type, frequency: frequency, gain: gain});
         }
-    }, [oscParams, audioEngine]);
+    }, [oscParams, audioEngine, oscId]);
 
     return (
         <div className="WfSelector">

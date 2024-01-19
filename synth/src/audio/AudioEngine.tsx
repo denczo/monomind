@@ -16,6 +16,7 @@ export class AudioEngine {
     dataArray: Uint8Array;
     oscStack: OscillatorNode[];
     gainStack: GainNode[];
+    audioParamStack: AudioParam[];
 
 
     private constructor() {
@@ -25,6 +26,7 @@ export class AudioEngine {
         this.freqLp = 500;
         this.oscStack = [];
         this.gainStack = [];
+        this.audioParamStack = [];
         this.adsrParams = { value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5 }
         this.oscParams = {
             [OscId.OSC]: { type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2 },
@@ -95,7 +97,6 @@ export class AudioEngine {
         this.adsrParams = params;
     }
 
-
     // sets parameters for either a filter adsr @filter.frequency or a gain adsr @gain.gain
     private setAdsParams(audioParam: AudioParam, params: AdsrParams): void {
         const currentTime = this.actx.currentTime;
@@ -104,6 +105,7 @@ export class AudioEngine {
         audioParam.setValueAtTime(0.1, currentTime);
         audioParam.linearRampToValueAtTime(audioParam.value, currentTime + params.attack);
         audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
+        this.audioParamStack.push(audioParam);
     }
 
     private setReleaseParam(audioParam: AudioParam, params: AdsrParams): void{
@@ -121,10 +123,11 @@ export class AudioEngine {
 
     public onReleaseAudio(adsrParams: AdsrParams): void{
         const osc = this.oscStack.pop();
-        const gain = this.gainStack.pop();
-        if(osc && gain){
+        // const gain = this.gainStack.pop();
+        const audioParam = this.audioParamStack.pop();
+        if(osc && audioParam){
             const currentTime = this.actx.currentTime;
-            gain.gain.linearRampToValueAtTime(0, currentTime + adsrParams.release);
+            audioParam.linearRampToValueAtTime(0, currentTime + adsrParams.release);
             osc.stop(currentTime + adsrParams.release)
         }
     }
@@ -140,7 +143,7 @@ export class AudioEngine {
             osc.connect(this.analyser);
 
             this.oscStack.push(osc);
-            this.gainStack.push(oscGain);
+            // this.gainStack.push(oscGain);
             const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
             const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
 
@@ -157,6 +160,7 @@ export class AudioEngine {
                 // setup for vibrato effect, fadsr
                 this.setAdsParams(filter.frequency, this.adsrParams);
                 filter.frequency.value = this.freqLp
+                // filter.detune.value = 100;
                 lfo.connect(lfoGain);  
                 lfoGain.connect(osc.frequency);
             }

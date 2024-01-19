@@ -4,7 +4,7 @@ import Key from "../../atoms/key/Key.tsx";
 import { AudioEngine } from "../../../audio/AudioEngine.tsx";
 import { useGlobalContext } from '../../../contexts/GlobalContext.tsx';
 import { Scheduler } from "../../../audio/Scheduler.tsx";
-import { AdsrParams, OscId } from "../../../types/audio.d.tsx";
+import { OscId } from "../../../types/audio.d.tsx";
 
 const Keyboard = ({ notes, keyMap }) => {
     const audioEngine = AudioEngine.getInstance();
@@ -19,7 +19,6 @@ const Keyboard = ({ notes, keyMap }) => {
         const { type, gain } = oscParams[OscId.OSC];
         audioEngine.setOscParams(OscId.OSC, { frequency: freq, type: type, gain: gain });
         audioEngine.onEnterAudio(adsrParams);
-        audioEngine.onReleaseAudio(adsrParams);
         // scheduler.noteStates[currentNote].isActive = false;
         if (isEditing) {
             scheduler.editNote(freq, type, noteNumber);
@@ -34,9 +33,9 @@ const Keyboard = ({ notes, keyMap }) => {
     const generateKeys = () => {
         return Object.entries(notes).map(([key, value], index) => {
             if (key.includes("#")) {
-                return <Key type={"BK"} key={index} isActive={isActive && value == noteNumber || isKeyDown && value == keyNoteNumber} onClick={() => handleClick(value)} />
+                return <Key type={"BK"} key={index} isActive={(isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)} />
             } else {
-                return <Key type={"WK"} key={index} isActive={isActive && value == noteNumber || isKeyDown && value == keyNoteNumber} onClick={() => handleClick(value)} />
+                return <Key type={"WK"} key={index} isActive={(isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)}/>
             }
         })
     }
@@ -58,6 +57,7 @@ const Keyboard = ({ notes, keyMap }) => {
     }
 
     useEffect(() => {
+        
         window.addEventListener("keydown", handleKeyPress);
         window.addEventListener("keyup", handleKeyRelease);
 
