@@ -7,8 +7,7 @@ const EditCtrl = () => {
 
     const scheduler = Scheduler.getInstance();
 
-    const [isPlaying, setPlaying] = useState(false);
-    const { isEditing, setEditing, setCurrentNote } = useGlobalContext();
+    const { isEditing, setEditing, setCurrentNote, isPlaying, setPlaying } = useGlobalContext();
 
     const handleClick = () => {
         if(isPlaying){

@@ -9,7 +9,7 @@ import { OscId } from "../../../types/audio.d.tsx";
 const Keyboard = ({ notes, keyMap }) => {
     const audioEngine = AudioEngine.getInstance();
     const scheduler = Scheduler.getInstance();
-    const { adsrParams, isEditing, currentNote, oscParams } = useGlobalContext();
+    const { adsrParams, isEditing, currentNote, oscParams, isPlaying } = useGlobalContext();
     const [keyNoteNumber, setKeyNoteNumber] = useState(0);
     const { noteNumber, isActive } = scheduler.noteStates[currentNote];
     const [isKeyDown, setKeyDown] = useState(true);
@@ -33,16 +33,16 @@ const Keyboard = ({ notes, keyMap }) => {
     const generateKeys = () => {
         return Object.entries(notes).map(([key, value], index) => {
             if (key.includes("#")) {
-                return <Key type={"BK"} key={index} isActive={(isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)} />
+                return <Key type={"BK"} key={index} isActive={(isPlaying && isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)} />
             } else {
-                return <Key type={"WK"} key={index} isActive={(isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)}/>
+                return <Key type={"WK"} key={index} isActive={(isPlaying && isActive && value === noteNumber) || (isKeyDown && value === keyNoteNumber)} onMouseDown={() => handleClick(value)} onMouseUp={() => audioEngine.onReleaseAudio(adsrParams)}/>
             }
         })
     }
 
     const handleKeyPress = (event) => {
         if(keyMap[event.keyCode] && !isKeyDown){
-            console.log("KEY DOWN")
+            console.log("KEY DOWN", isPlaying)
             const noteNumber = keyMap[event.keyCode];
             setKeyNoteNumber(noteNumber)
             handleClick(noteNumber);
