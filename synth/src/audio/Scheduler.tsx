@@ -15,7 +15,6 @@ export class Scheduler {
     audioEngine: AudioEngine;
     currentNoteCallbacks: any[];
     observers: any[];
-    adsr: AdsrParams;
 
 
     private constructor(tempo: number = 120, currentNote: number = 0, nextNoteTime: number = 2.0, lookahead: number = 25.0, scheduleAheadTime: number = 0.1) {
@@ -90,9 +89,9 @@ export class Scheduler {
     public startScheduler(): void {
         // Start the scheduling loop after a short delay
         setTimeout(() => {
-            this.nextNoteTime = this.audioEngine.actx.currentTime;
+            this.nextNoteTime = this.audioEngine.actx.currentTime + this.scheduleAheadTime;
             this.scheduler();
-            this.audioEngine.actx.resume();
+            // this.audioEngine.actx.resume();
         }, 10);
     }
 
@@ -105,10 +104,6 @@ export class Scheduler {
 
     public setNotes(noteStates: NoteState[]) {
         this.noteStates = noteStates;
-    }
-
-    public setEnv(adsr: AdsrParams){
-        this.adsr = adsr;
     }
 
     public setTempo(bpm: number){
