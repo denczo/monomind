@@ -24,6 +24,8 @@ const EditCtrl = () => {
     const handleEditing = () => {
         if (isEditing) {
             setEditing(false);
+            scheduler.stopScheduler();
+            setCurrentNote(0);
         } else {
             setEditing(true);
         }
