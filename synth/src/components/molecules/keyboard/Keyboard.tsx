@@ -21,6 +21,8 @@ const Keyboard = ({ notes, keyMap }) => {
         audioEngine.onEnterAudio(adsrParams);
         // scheduler.noteStates[currentNote].isActive = false;
         if (isEditing) {
+            // scheduler.jump2Note(currentNote);
+            console.log(currentNote, freq)
             scheduler.editNote(freq, type, noteNumber);
         }
     }
@@ -64,7 +66,6 @@ const Keyboard = ({ notes, keyMap }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyPress);
             window.removeEventListener("keyup", handleKeyRelease);
-
         };
     
     }, [adsrParams, isKeyDown]);

@@ -10,13 +10,20 @@ const EditCtrl = () => {
     const { isEditing, setEditing, setCurrentNote, isPlaying, setPlaying } = useGlobalContext();
 
     const handleClick = () => {
-        if(isPlaying){
+
+        if(isEditing){
+            setEditing(false);
+            setCurrentNote(0);
+            scheduler.stopScheduler();
+        }
+
+        if (isPlaying) {
             setPlaying(false);
             scheduler.stopScheduler();
             setCurrentNote(0);
-        }else{
-           scheduler.startScheduler();
-           setPlaying(true);
+        } else {
+            scheduler.startScheduler();
+            setPlaying(true);
         }
     }
 
@@ -32,9 +39,9 @@ const EditCtrl = () => {
 
     return (
         <div id="SeqButtons">
-        <button className={isPlaying? "SeqCtrl play" : "SeqCtrl"} onClick={handleClick}><div className="arrow-right" /></button>
-        <button className={isEditing? "SeqCtrl play" : "SeqCtrl"} onClick={handleEditing}><div className="circle" /></button>
-    </div>   );
+            <button className={isPlaying ? "SeqCtrl play" : "SeqCtrl"} onClick={handleClick}><div className="arrow-right" /></button>
+            <button className={isEditing ? "SeqCtrl play" : "SeqCtrl"} onClick={handleEditing}><div className="circle" /></button>
+        </div>);
 }
 
 export default EditCtrl;

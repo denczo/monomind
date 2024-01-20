@@ -38,21 +38,17 @@ export interface OscParams{
 
 export interface Params {
     adsrParams: AdsrParams;
-    gain: number;
     isPlaying: boolean;
     isEditing: boolean;
     bpm: number;
-    waveform: string;
     freqLp: number;
     oscParams: OscParams[];
     currentNote: number;
     freqLfo: number;
     gainLfo: number;
-    setGain: React.Dispatch<React.SetStateAction<number>>;
     setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
     setBpm: React.Dispatch<React.SetStateAction<number>>;
-    setWaveform: React.Dispatch<React.SetStateAction<string>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
     setCurrentNote: React.Dispatch<React.SetStateAction<number>>;
     setFreqLfo: React.Dispatch<React.SetStateAction<number>>;

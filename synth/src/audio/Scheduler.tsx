@@ -13,7 +13,6 @@ export class Scheduler {
     timerID: ReturnType<typeof setTimeout>;
     noteStates: NoteState[];
     audioEngine: AudioEngine;
-    currentNoteCallbacks: any[];
     observers: any[];
 
 
@@ -26,7 +25,6 @@ export class Scheduler {
         this.scheduler = this.scheduler.bind(this);
         this.noteStates = [{isActive: false, frequency: 0, noteNumber: 0} as NoteState]
         this.audioEngine = AudioEngine.getInstance();
-        this.currentNoteCallbacks = []
         this.observers = [];
     }
 
@@ -81,9 +79,15 @@ export class Scheduler {
     }
 
     public editNote(frequency: number, type: OscillatorType, noteNumber: number): void{
-        this.notifyObservers();
         this.noteStates[this.currentNote] = {isActive: true, frequency: frequency, type: type as OscillatorType, noteNumber: noteNumber}
         this.currentNote = (this.currentNote + 1) % this.noteStates.length;
+        this.notifyObservers();
+
+    }
+
+    public jump2Note(newNote: number){
+        this.currentNote = newNote;
+        this.notifyObservers();
     }
 
     public startScheduler(): void {
