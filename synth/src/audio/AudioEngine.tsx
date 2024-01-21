@@ -128,7 +128,9 @@ export class AudioEngine {
         if(osc && audioParam){
             const currentTime = this.actx.currentTime;
             audioParam.linearRampToValueAtTime(0, currentTime + adsrParams.release);
-            osc.stop(currentTime + adsrParams.release)
+            // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
+
+            osc.stop(currentTime + adsrParams.release - 0.2)
         }
     }
 
@@ -137,7 +139,14 @@ export class AudioEngine {
 
         if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
             const currentTime = this.actx.currentTime;
-
+            
+            const compressor = this.actx.createDynamicsCompressor();
+            compressor.threshold.setValueAtTime(-50, currentTime);
+            compressor.knee.setValueAtTime(40, currentTime);
+            compressor.ratio.setValueAtTime(12, currentTime);
+            compressor.attack.setValueAtTime(0, currentTime);
+            compressor.release.setValueAtTime(0.25, currentTime);
+            
             const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
             const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
             osc.connect(this.analyser);
@@ -165,7 +174,7 @@ export class AudioEngine {
                 lfoGain.connect(osc.frequency);
             }
 
-            osc.connect(oscGain).connect(filter).connect(this.actx.destination);
+            osc.connect(oscGain).connect(filter).connect(compressor).connect(this.actx.destination);
             lfo.start();
             osc.start(currentTime);
         }
