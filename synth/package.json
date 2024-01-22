@@ -1,6 +1,6 @@
 {
-  "name": "jblaster",
-  "version": "0.2.0",
+  "name": "monomind",
+  "version": "0.9.0",
   "private": false,
   "homepage": "https://denczo.github.io/",
   "dependencies": {
