@@ -1,0 +1,8 @@
+#Footer{
+    display: flex;
+    margin-top: auto;
+    text-align: center;
+    flex-direction: column;
+    padding: 10px;
+    color: grey;
+}

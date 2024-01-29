@@ -7,20 +7,33 @@
   background: radial-gradient(#ffffff, #889b86);
   height: 100vh;
   user-select: none;
+  min-height: 100vh;
 }
 
-.touchpad{
+.touchpad {
   background-color: aquamarine;
   height: 300px;
   width: 300px;
 }
 
-.Synth label#brand{
+.Synth label#brand {
   font-family: Fantasy;
   font-size: xx-large;
 }
 
-.Synth{
+h3{
+  color: grey;
+}
+
+#SynthWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.Synth {
   padding: 10px 20px 0px 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -29,12 +42,12 @@
   background: linear-gradient(to top, #1a1a1a 0%, rgb(59, 59, 59) 100%);
 }
 
-.SliderSection{
+.SliderSection {
   display: flex;
   flex-direction: row;
 }
 
-#VizSection{
+#VizSection {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -43,7 +56,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=MonteCarlo');
 
-#Label{
+#Label {
   font-family: 'MonteCarlo', cursive;
   display: flex;
   /* align-items: flex-end;   */
@@ -55,6 +68,6 @@
   /* background-color: aqua; */
 }
 
-.LabelPlacement{
+.LabelPlacement {
   display: flex;
 }

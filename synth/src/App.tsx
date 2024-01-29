@@ -6,6 +6,7 @@ import React from 'react';
 import Controls from './components/organism/controls/Controls.tsx';
 import Visualizer from './components/atoms/visualizer/Visualizer.tsx';
 import EditCtrl from './components/molecules/sequencer/EditCtrl.tsx';
+import Footer from './components/atoms/footer/Footer.tsx';
 
 
 
@@ -17,6 +18,8 @@ function App() {
   return (
     <GlobalProvider>
       <div className="App">
+        <div id="SynthWrapper">
+        <h3>MonoMind - a monophonic synthesizer powered by the Web Audio API</h3>
         <div className="Synth">
           <div className='SliderSection'>
             <Controls />
@@ -31,6 +34,8 @@ function App() {
           </div>
           <Keyboard notes={notes} keyMap={keyMap} />
         </div>
+        </div>
+        <Footer />
       </div>
     </GlobalProvider>
   );
