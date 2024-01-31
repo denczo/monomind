@@ -15,7 +15,7 @@ const Sequencer = () => {
     const scheduler = Scheduler.getInstance();
 
     useEffect(() => {
-        setNoteStates(themes.themes['knightrider'] as NoteState[])
+        setNoteStates(themes.themes['daftpunk'] as NoteState[])
     }, []);
 
     useEffect(() => {
@@ -24,8 +24,8 @@ const Sequencer = () => {
         const observer = newNote => {
             setCurrentNote(newNote);
         };
+        console.log(currentNote)
         scheduler.addObserver(observer);
-        console.log(JSON.stringify(noteStates));
         // Cleanup: Unsubscribe when the component unmounts
         return () => {
             scheduler.removeObserver(observer);

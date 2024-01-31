@@ -4,11 +4,13 @@ import { Params, OscParams, AdsrParams } from '../types/audio.d';
 const GlobalContext = createContext<Params>({
     adsrParams: {
         value: 0,
+        mode: false,
         attack: 0,
         decay: 0,
         sustain: 0,
         release: 0,
         setValue: function (): void {},
+        setMode: function (): void {},
         setAttack: function (): void {},
         setDecay: function (): void {},
         setSustain: function (): void {},
@@ -36,11 +38,13 @@ export function GlobalProvider({ children }){
 
     const [adsrParams, setAdsrParams] = useState<AdsrParams>({
         value: 0.5,
+        mode: false,
         attack: 0.1,
         decay: 0.8,
         sustain: 0.8,
         release: 0.6,
         setValue: (newValue) => setAdsrParams((prev) => ({ ...prev, value: newValue })),
+        setMode: (newValue) => setAdsrParams((prev) => ({ ...prev, mode: newValue })),
         setAttack: (newValue) => setAdsrParams((prev) => ({ ...prev, attack: newValue })),
         setDecay: (newValue) => setAdsrParams((prev) => ({ ...prev, decay: newValue })),
         setSustain: (newValue) => setAdsrParams((prev) => ({ ...prev, sustain: newValue })),

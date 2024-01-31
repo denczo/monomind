@@ -103,10 +103,13 @@ export class AudioEngine {
     private setAdsParams(audioParam: AudioParam, params: AdsrParams): void {
         const currentTime = this.actx.currentTime;
         this.adsrParams = params;
-        audioParam.cancelScheduledValues(currentTime);
-        audioParam.setValueAtTime(0.1, currentTime);
-        audioParam.linearRampToValueAtTime(audioParam.value, currentTime + params.attack);
-        audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
+
+        const {attack, decay, sustain, release, value} = params
+        // results in note skipping when used with gain adsr    
+        // audioParam.cancelScheduledValues(currentTime);
+        audioParam.setValueAtTime(0, currentTime);
+        audioParam.linearRampToValueAtTime(value, currentTime + attack);
+        audioParam.setTargetAtTime(sustain * value, currentTime + attack, decay);
         this.audioParamStack.push(audioParam);
     }
 
@@ -124,7 +127,7 @@ export class AudioEngine {
     }
 
     public onReleaseAudio(adsrParams: AdsrParams): void{
-        console.log("on exit")
+        // console.log("on exit")
      
         const osc = this.oscStack.pop();
         // const gain = this.gainStack.pop();
@@ -133,7 +136,7 @@ export class AudioEngine {
             const currentTime = this.actx.currentTime;
             audioParam.linearRampToValueAtTime(0, currentTime + adsrParams.release);
             // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
-            osc.stop(currentTime + adsrParams.release - 0.2)
+            osc.stop(currentTime + adsrParams.release - 0.1)
             this.oscStack.push(osc);
             this.audioParamStack.push(audioParam);
         }
@@ -145,7 +148,7 @@ export class AudioEngine {
         const audioParam = this.audioParamStack.pop();
         if(osc && audioParam){
             const currentTime = this.actx.currentTime;
-            audioParam.linearRampToValueAtTime(0, currentTime + 0.2);
+            audioParam.linearRampToValueAtTime(0, currentTime - 0.2);
             // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
             osc.stop(currentTime)
         }
@@ -156,18 +159,18 @@ export class AudioEngine {
 
         if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
             const currentTime = this.actx.currentTime;
-            const compressor = this.actx.createDynamicsCompressor();
-            compressor.threshold.setValueAtTime(-50, currentTime);
-            compressor.knee.setValueAtTime(40, currentTime);
-            compressor.ratio.setValueAtTime(12, currentTime);
-            compressor.attack.setValueAtTime(0, currentTime);
-            compressor.release.setValueAtTime(0.25, currentTime);
+            // const compressor = this.actx.createDynamicsCompressor();
+            // compressor.threshold.setValueAtTime(-50, currentTime);
+            // compressor.knee.setValueAtTime(40, currentTime);
+            // compressor.ratio.setValueAtTime(12, currentTime);
+            // compressor.attack.setValueAtTime(0, currentTime);
+            // compressor.release.setValueAtTime(0.25, currentTime);
             
             const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
             const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
             osc.connect(this.analyser);
             this.oscStack.push(osc);
-            console.log("on enter")
+            console.log("on enter ", oscGain.gain.value, this.adsrParams.value)
             // this.gainStack.push(oscGain);
             const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
             const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
@@ -175,7 +178,7 @@ export class AudioEngine {
             const filter = this.actx.createBiquadFilter();
             filter.type = 'lowpass';
             
-            if(false){
+            if(adsrParams.mode){
                 // setup for vibrato effect, gadsr
                 this.setAdsParams(oscGain.gain, this.adsrParams)
                 filter.frequency.value = this.freqLp
@@ -189,8 +192,8 @@ export class AudioEngine {
                 lfo.connect(lfoGain);  
                 lfoGain.connect(osc.frequency);
             }
-
-            osc.connect(oscGain).connect(filter).connect(compressor).connect(this.actx.destination);
+            osc.connect(oscGain).connect(filter).connect(this.actx.destination);
+            // osc.connect(oscGain).connect(filter).connect(compressor).connect(this.actx.destination);
             lfo.start();
             osc.start(currentTime);
         }

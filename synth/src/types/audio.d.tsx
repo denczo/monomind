@@ -19,6 +19,7 @@ export interface NoteState {
 export interface AdsrParams {
     //for gadsr it's gain, for fadsr it's frequency
     value: number;
+    mode: boolean;
     attack: number;
     decay: number;
     sustain: number;
@@ -28,6 +29,7 @@ export interface AdsrParams {
     setSustain: React.Dispatch<React.SetStateAction<number>>;
     setRelease: React.Dispatch<React.SetStateAction<number>>;
     setValue: React.Dispatch<React.SetStateAction<number>>;
+    setMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface OscParams{
