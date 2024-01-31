@@ -61,8 +61,11 @@ export class Scheduler {
         const { type, gain } = this.audioEngine.oscParams[OscId.OSC];
         if (noteStates[beatNumber].isActive) {
             this.audioEngine.setOscParams(OscId.OSC, {frequency: noteStates[beatNumber].frequency, type: type, gain: gain})
+            this.audioEngine.onCancleAudio();
             this.audioEngine.onEnterAudio(this.audioEngine.adsrParams);
             this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
+        }else{
+            // this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
         }
     }
 
@@ -82,7 +85,6 @@ export class Scheduler {
         this.noteStates[this.currentNote] = {isActive: true, frequency: frequency, type: type as OscillatorType, noteNumber: noteNumber}
         this.currentNote = (this.currentNote + 1) % this.noteStates.length;
         this.notifyObservers();
-
     }
 
     public jump2Note(newNote: number){
@@ -101,6 +103,7 @@ export class Scheduler {
 
     public stopScheduler(): void {
         if(this.timerID){
+            this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
             clearTimeout(this.timerID);
             this.currentNote = 0;
         }

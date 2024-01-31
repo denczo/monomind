@@ -1,5 +1,8 @@
 .Notes{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
+    width: 800px;
+    gap: 2px;
 }

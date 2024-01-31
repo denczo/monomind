@@ -18,6 +18,7 @@ const Keyboard = ({ notes, keyMap }) => {
         const freq = renderFrequency(noteNumber);
         const { type, gain } = oscParams[OscId.OSC];
         audioEngine.setOscParams(OscId.OSC, { frequency: freq, type: type, gain: gain });
+        audioEngine.onCancleAudio();
         audioEngine.onEnterAudio(adsrParams);
         // scheduler.noteStates[currentNote].isActive = false;
         if (isEditing) {

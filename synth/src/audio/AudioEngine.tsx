@@ -17,6 +17,7 @@ export class AudioEngine {
     oscStack: OscillatorNode[];
     gainStack: GainNode[];
     audioParamStack: AudioParam[];
+    oscOffStack: OscillatorNode[];
 
 
     private constructor() {
@@ -26,6 +27,7 @@ export class AudioEngine {
         this.freqLp = 500;
         this.oscStack = [];
         this.gainStack = [];
+        this.oscOffStack = [];
         this.audioParamStack = [];
         this.adsrParams = { value: 0.5, attack: 0.25, decay: 0.25, sustain: 0.5, release: 0.5 }
         this.oscParams = {
@@ -122,6 +124,8 @@ export class AudioEngine {
     }
 
     public onReleaseAudio(adsrParams: AdsrParams): void{
+        console.log("on exit")
+     
         const osc = this.oscStack.pop();
         // const gain = this.gainStack.pop();
         const audioParam = this.audioParamStack.pop();
@@ -129,8 +133,21 @@ export class AudioEngine {
             const currentTime = this.actx.currentTime;
             audioParam.linearRampToValueAtTime(0, currentTime + adsrParams.release);
             // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
-
             osc.stop(currentTime + adsrParams.release - 0.2)
+            this.oscStack.push(osc);
+            this.audioParamStack.push(audioParam);
+        }
+    }
+
+    public onCancleAudio(): void{
+        console.log("on cancle")
+        const osc = this.oscStack.pop();
+        const audioParam = this.audioParamStack.pop();
+        if(osc && audioParam){
+            const currentTime = this.actx.currentTime;
+            audioParam.linearRampToValueAtTime(0, currentTime + 0.2);
+            // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
+            osc.stop(currentTime)
         }
     }
 
@@ -139,7 +156,6 @@ export class AudioEngine {
 
         if (this.actx && this.isValidNumber(attack) && this.isValidNumber(decay) && this.isValidNumber(sustain) && this.isValidNumber(release)) {
             const currentTime = this.actx.currentTime;
-            
             const compressor = this.actx.createDynamicsCompressor();
             compressor.threshold.setValueAtTime(-50, currentTime);
             compressor.knee.setValueAtTime(40, currentTime);
@@ -150,8 +166,8 @@ export class AudioEngine {
             const osc = this.initOscillator(this.actx, this.oscParams[OscId.OSC]);
             const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
             osc.connect(this.analyser);
-
             this.oscStack.push(osc);
+            console.log("on enter")
             // this.gainStack.push(oscGain);
             const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
             const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);

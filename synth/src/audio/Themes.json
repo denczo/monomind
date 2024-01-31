@@ -1,0 +1,586 @@
+{
+    "themes": {
+        "kernkraft 400": [
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 155.56349186104043,
+                "type": "sawtooth",
+                "noteNumber": 51
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": false,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": true,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": true,
+                "frequency": 82.40688922821748,
+                "type": "sawtooth",
+                "noteNumber": 40
+            },
+            {
+                "isActive": true,
+                "frequency": 87.30705785825097,
+                "type": "sawtooth",
+                "noteNumber": 41
+            },
+            {
+                "isActive": true,
+                "frequency": 92.49860567790861,
+                "type": "sawtooth",
+                "noteNumber": 42
+            },
+            {
+                "isActive": false,
+                "frequency": 92.49860567790861,
+                "type": "sawtooth",
+                "noteNumber": 42
+            },
+            {
+                "isActive": false,
+                "frequency": 87.30705785825097,
+                "type": "sawtooth",
+                "noteNumber": 41
+            },
+            {
+                "isActive": false,
+                "frequency": 65.40639132514966,
+                "type": "sawtooth",
+                "noteNumber": 36
+            }
+        ],
+        "daftpunk": [
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": false,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 155.56349186104043,
+                "type": "sawtooth",
+                "noteNumber": 51
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": false,
+                "frequency": 87.30705785825097,
+                "type": "sawtooth",
+                "noteNumber": 41
+            },
+            {
+                "isActive": false,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 87.30705785825097,
+                "type": "sawtooth",
+                "noteNumber": 41
+            },
+            {
+                "isActive": true,
+                "frequency": 97.99885899543733,
+                "type": "sawtooth",
+                "noteNumber": 43
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": false,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": false,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": false,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": true,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": true,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": true,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": true,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": true,
+                "frequency": 65.40639132514966,
+                "type": "sawtooth",
+                "noteNumber": 36
+            },
+            {
+                "isActive": false,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": false,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": false,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": false,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": true,
+                "frequency": 73.41619197935188,
+                "type": "sawtooth",
+                "noteNumber": 38
+            },
+            {
+                "isActive": false,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": true,
+                "frequency": 77.78174593052022,
+                "type": "sawtooth",
+                "noteNumber": 39
+            },
+            {
+                "isActive": false,
+                "frequency": 65.40639132514966,
+                "type": "sawtooth",
+                "noteNumber": 36
+            }
+        ],
+        "knightrider": [
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": false,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 146.8323839587038,
+                "type": "sawtooth",
+                "noteNumber": 50
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 138.59131548843604,
+                "type": "sawtooth",
+                "noteNumber": 49
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": false,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 130.8127826502993,
+                "type": "sawtooth",
+                "noteNumber": 48
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 116.54094037952248,
+                "type": "sawtooth",
+                "noteNumber": 46
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            },
+            {
+                "isActive": true,
+                "frequency": 123.47082531403103,
+                "type": "sawtooth",
+                "noteNumber": 47
+            }
+        ]
+    }
+}
