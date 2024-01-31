@@ -11,7 +11,6 @@ const Switch = () => {
         setMode(!mode);
     }
 
-
     return (<div id="switchcontainer">
             <div>Gain</div>
             <label className="switch">

@@ -1,4 +1,4 @@
-import { AdsrParams, NoteState, OscId } from "../types/audio.d.tsx";
+import { NoteState, OscId } from "../types/audio.d.tsx";
 import { AudioEngine } from "./AudioEngine.tsx";
 
 export class Scheduler {
@@ -50,7 +50,7 @@ export class Scheduler {
     private nextNote(amountNotes: number): void {
         const secondsPerBeat = 60.0 / this.tempo;
         this.nextNoteTime += secondsPerBeat; // Add beat length to last beat time
-        // Advance the beat number, wrap to zero when reaching 4
+        // Advance the beat number, wrap to zero when reaching amountNotes
         this.currentNote = (this.currentNote + 1) % amountNotes;
     }
 
@@ -64,8 +64,6 @@ export class Scheduler {
             this.audioEngine.onCancleAudio();
             this.audioEngine.onEnterAudio(this.audioEngine.adsrParams);
             this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
-        }else{
-            // this.audioEngine.onReleaseAudio(this.audioEngine.adsrParams);
         }
     }
 

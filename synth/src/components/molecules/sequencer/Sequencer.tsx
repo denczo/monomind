@@ -15,7 +15,7 @@ const Sequencer = () => {
     const scheduler = Scheduler.getInstance();
 
     useEffect(() => {
-        setNoteStates(themes.themes['daftpunk'] as NoteState[])
+        setNoteStates(themes.themes['kernkraft 400'] as NoteState[])
     }, []);
 
     useEffect(() => {

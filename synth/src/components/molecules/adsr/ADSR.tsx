@@ -8,7 +8,6 @@ import Switch from '../../atoms/switch/Switch.tsx';
 const ADSR = () => {
 
   const audioEngine = AudioEngine.getInstance();
-
   const { adsrParams } = useGlobalContext();
 
   useEffect(() => {

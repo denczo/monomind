@@ -104,52 +104,33 @@ export class AudioEngine {
         const currentTime = this.actx.currentTime;
         this.adsrParams = params;
 
-        const {attack, decay, sustain, release, value} = params
+        const {attack, decay, sustain, value} = params
         // results in note skipping when used with gain adsr    
         // audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(0, currentTime);
-        audioParam.linearRampToValueAtTime(value, currentTime + attack);
+        audioParam.linearRampToValueAtTime(audioParam.value, currentTime + attack);
         audioParam.setTargetAtTime(sustain * value, currentTime + attack, decay);
         this.audioParamStack.push(audioParam);
     }
 
-    private setReleaseParam(audioParam: AudioParam, params: AdsrParams): void{
-        const currentTime = this.actx.currentTime;
-        audioParam.linearRampToValueAtTime(0, currentTime + params.release);
-    }
-
-    private stopOsc(release: number): void{
-        const currentTime = this.actx.currentTime;
-        const osc = this.oscStack.pop();
-        if(osc){
-            osc.stop(currentTime + release)
-        }
-    }
-
     public onReleaseAudio(adsrParams: AdsrParams): void{
-        // console.log("on exit")
-     
         const osc = this.oscStack.pop();
-        // const gain = this.gainStack.pop();
         const audioParam = this.audioParamStack.pop();
         if(osc && audioParam){
             const currentTime = this.actx.currentTime;
             audioParam.linearRampToValueAtTime(0, currentTime + adsrParams.release);
-            // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
-            osc.stop(currentTime + adsrParams.release - 0.1)
+            osc.stop(currentTime + adsrParams.release - 0.2)
             this.oscStack.push(osc);
             this.audioParamStack.push(audioParam);
         }
     }
 
     public onCancleAudio(): void{
-        console.log("on cancle")
         const osc = this.oscStack.pop();
         const audioParam = this.audioParamStack.pop();
         if(osc && audioParam){
             const currentTime = this.actx.currentTime;
-            audioParam.linearRampToValueAtTime(0, currentTime - 0.2);
-            // audioParam.setTargetAtTime(params.sustain * audioParam.value, currentTime + params.attack, params.decay);
+            audioParam.linearRampToValueAtTime(0, currentTime + 0.2);
             osc.stop(currentTime)
         }
     }
@@ -170,8 +151,6 @@ export class AudioEngine {
             const oscGain = this.initGainNode(this.actx, this.oscParams[OscId.OSC].gain, osc);
             osc.connect(this.analyser);
             this.oscStack.push(osc);
-            console.log("on enter ", oscGain.gain.value, this.adsrParams.value)
-            // this.gainStack.push(oscGain);
             const lfo = this.initOscillator(this.actx, this.oscParams[OscId.LFO]);
             const lfoGain = this.initGainNode(this.actx, this.oscParams[OscId.LFO].gain, lfo);
 
