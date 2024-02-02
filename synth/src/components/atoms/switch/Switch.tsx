@@ -14,7 +14,7 @@ const Switch = () => {
     return (<div id="switchcontainer">
             <div>Gain</div>
             <label className="switch">
-                <input type="checkbox" onChange={handleCheck}/>
+                <input type="checkbox" checked={!!mode} onChange={handleCheck}/>
                 <span className="slider round"></span>
             </label>
         <div>Filter</div>

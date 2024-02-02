@@ -33,7 +33,7 @@ const WfSelector = ({oscId} : {oscId: OscId}) => {
                 <span>Saw</span>
                 <span>Squ</span>
             </div>
-            <Slider max={2} step={1} name={""} value={undefined} updateValue={(e) => updateItem(oscId, Waveform[e.target.value])} />
+            <Slider max={2} step={1} name={""} value={Waveform[oscParams[oscId].type]} updateValue={(e) => updateItem(oscId, Waveform[e.target.value])} />
         </div>
     );
 }

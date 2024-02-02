@@ -157,7 +157,7 @@ export class AudioEngine {
             const filter = this.actx.createBiquadFilter();
             filter.type = 'lowpass';
             
-            if(adsrParams.mode){
+            if(!adsrParams.mode){
                 // setup for vibrato effect, gadsr
                 this.setAdsParams(oscGain.gain, this.adsrParams)
                 filter.frequency.value = this.freqLp

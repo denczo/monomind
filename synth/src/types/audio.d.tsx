@@ -42,6 +42,7 @@ export interface Params {
     adsrParams: AdsrParams;
     isPlaying: boolean;
     isEditing: boolean;
+    preset: number;
     bpm: number;
     freqLp: number;
     oscParams: OscParams[];
@@ -50,6 +51,7 @@ export interface Params {
     gainLfo: number;
     setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+    setPreset: React.Dispatch<React.SetStateAction<number>>;
     setBpm: React.Dispatch<React.SetStateAction<number>>;
     setFreqLp: React.Dispatch<React.SetStateAction<number>>;
     setCurrentNote: React.Dispatch<React.SetStateAction<number>>;

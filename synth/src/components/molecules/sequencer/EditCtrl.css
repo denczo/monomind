@@ -4,7 +4,6 @@
     width: 50px;
     height:  50px;
     border-radius: 10px;
-    /* justify-content: center; */
     border: 3px outset white;
     justify-content: center;
     margin-right: 5px;
@@ -20,18 +19,19 @@
     border: 3px outset #ffb1b1;
 }
 
+.SeqCtrl:active{
+    transform: translateY(2px);
+}
+ 
+
 #SeqButtons{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    /* background-color: aqua; */
-    /* width: 100%; */
 }
 
 .arrow-right {
-    /* width: 0;  */
-    /* height: 0;  */
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-left: 15px solid dimgray;
@@ -48,4 +48,13 @@
     background-color: dimgray;
     border-radius: 25px;
     align-self: center;
+}
+
+.pipe{
+    display: flex;
+    width: 4px;
+    height: 26px;
+    background-color: dimgray;
+    align-self: center;
+    border-radius: 2px;
 }

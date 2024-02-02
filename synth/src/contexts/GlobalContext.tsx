@@ -4,7 +4,7 @@ import { Params, OscParams, AdsrParams } from '../types/audio.d';
 const GlobalContext = createContext<Params>({
     adsrParams: {
         value: 0,
-        mode: false,
+        mode: true,
         attack: 0,
         decay: 0,
         sustain: 0,
@@ -18,6 +18,7 @@ const GlobalContext = createContext<Params>({
     },
     isPlaying: false,
     isEditing: false,
+    preset: 0,
     bpm: 0,
     freqLp: 0,
     currentNote: 0,
@@ -26,6 +27,7 @@ const GlobalContext = createContext<Params>({
     oscParams: [],
     setPlaying: function (): void {},
     setEditing: function (): void {},
+    setPreset: function (): void {},
     setBpm: function (): void {},
     setFreqLp: function (): void {}, 
     setCurrentNote: function (): void {},
@@ -38,11 +40,11 @@ export function GlobalProvider({ children }){
 
     const [adsrParams, setAdsrParams] = useState<AdsrParams>({
         value: 0.5,
-        mode: false,
-        attack: 0.1,
+        mode: true,
+        attack: 0.2,
         decay: 0.8,
         sustain: 0.8,
-        release: 0.6,
+        release: 0.8,
         setValue: (newValue) => setAdsrParams((prev) => ({ ...prev, value: newValue })),
         setMode: (newValue) => setAdsrParams((prev) => ({ ...prev, mode: newValue })),
         setAttack: (newValue) => setAdsrParams((prev) => ({ ...prev, attack: newValue })),
@@ -53,14 +55,15 @@ export function GlobalProvider({ children }){
 
     const [isPlaying, setPlaying] = useState(false);
     const [isEditing, setEditing] = useState(false);
-    const [bpm, setBpm] = useState(120)
-    const [freqLp, setFreqLp] = useState(500);
+    const [preset, setPreset] = useState(0);
+    const [bpm, setBpm] = useState(360)
+    const [freqLp, setFreqLp] = useState(1700);
     const [currentNote, setCurrentNote] = useState(0);
-    const [freqLfo, setFreqLfo] = useState(0);
-    const [gainLfo, setGainLfo] = useState(0);
+    const [freqLfo, setFreqLfo] = useState(200);
+    const [gainLfo, setGainLfo] = useState(200);
     const [oscParams, setOscParams] = useState<OscParams[]>([
-        {type: 'sawtooth' as OscillatorType, frequency: 0, gain: 0.5}, 
-        {type: 'triangle' as OscillatorType, frequency: 0, gain: 0.2}]);
+        {type: 'square' as OscillatorType, frequency: 0, gain: 0.5}, 
+        {type: 'triangle' as OscillatorType, frequency: 6, gain: 1.8}]);
 
 
     return (
@@ -68,6 +71,7 @@ export function GlobalProvider({ children }){
             adsrParams,
             isPlaying,
             isEditing,
+            preset,
             bpm,
             freqLp,
             currentNote,
@@ -76,6 +80,7 @@ export function GlobalProvider({ children }){
             oscParams,
             setPlaying,
             setEditing,
+            setPreset,
             setBpm,
             setFreqLp,
             setCurrentNote,

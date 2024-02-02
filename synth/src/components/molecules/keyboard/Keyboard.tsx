@@ -45,7 +45,6 @@ const Keyboard = ({ notes, keyMap }) => {
 
     const handleKeyPress = (event) => {
         if(keyMap[event.keyCode] && !isKeyDown){
-            console.log("KEY DOWN", isPlaying)
             const noteNumber = keyMap[event.keyCode];
             setKeyNoteNumber(noteNumber)
             handleClick(noteNumber);
@@ -54,7 +53,6 @@ const Keyboard = ({ notes, keyMap }) => {
     };
 
     const handleKeyRelease = () => {
-        console.log("KEY UP")
         audioEngine.onReleaseAudio(adsrParams);
         setKeyDown(false);
     }
