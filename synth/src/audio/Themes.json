@@ -1,5 +1,203 @@
 {
     "themes": {
+        "GiovanniGiorgio": [
+            {
+              "isActive": true,
+              "frequency": 97.99885899543733,
+              "type": "square",
+              "noteNumber": 43
+            },
+            {
+              "isActive": false,
+              "frequency": 97.99885899543733,
+              "type": "square",
+              "noteNumber": 43
+            },
+            {
+              "isActive": true,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": false,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": true,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": false,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": true,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": true,
+              "frequency": 146.8323839587038,
+              "type": "square",
+              "noteNumber": 50
+            },
+            {
+              "isActive": false,
+              "frequency": 146.8323839587038,
+              "type": "square",
+              "noteNumber": 50
+            },
+            {
+              "isActive": true,
+              "frequency": 146.8323839587038,
+              "type": "square",
+              "noteNumber": 50
+            },
+            {
+              "isActive": true,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": false,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": true,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": false,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": true,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": false,
+              "frequency": 116.54094037952248,
+              "type": "square",
+              "noteNumber": 46
+            },
+            {
+              "isActive": true,
+              "frequency": 73.41619197935188,
+              "type": "square",
+              "noteNumber": 38
+            },
+            {
+              "isActive": false,
+              "frequency": 73.41619197935188,
+              "type": "square",
+              "noteNumber": 38
+            },
+            {
+              "isActive": true,
+              "frequency": 87.30705785825097,
+              "type": "square",
+              "noteNumber": 41
+            },
+            {
+              "isActive": true,
+              "frequency": 261.6255653005986,
+              "type": "square",
+              "noteNumber": 60
+            },
+            {
+              "isActive": true,
+              "frequency": 82.40688922821748,
+              "type": "square",
+              "noteNumber": 40
+            },
+            {
+              "isActive": true,
+              "frequency": 233.08188075904496,
+              "type": "square",
+              "noteNumber": 58
+            },
+            {
+              "isActive": true,
+              "frequency": 87.30705785825097,
+              "type": "square",
+              "noteNumber": 41
+            },
+            {
+              "isActive": true,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": true,
+              "frequency": 220,
+              "type": "square",
+              "noteNumber": 57
+            },
+            {
+              "isActive": true,
+              "frequency": 110,
+              "type": "square",
+              "noteNumber": 45
+            },
+            {
+              "isActive": true,
+              "frequency": 87.30705785825097,
+              "type": "square",
+              "noteNumber": 41
+            },
+            {
+              "isActive": true,
+              "frequency": 174.61411571650194,
+              "type": "square",
+              "noteNumber": 53
+            },
+            {
+              "isActive": true,
+              "frequency": 82.40688922821748,
+              "type": "square",
+              "noteNumber": 40
+            },
+            {
+              "isActive": true,
+              "frequency": 220,
+              "type": "square",
+              "noteNumber": 57
+            },
+            {
+              "isActive": true,
+              "frequency": 233.08188075904496,
+              "type": "square",
+              "noteNumber": 58
+            },
+            {
+              "isActive": true,
+              "frequency": 261.6255653005986,
+              "type": "square",
+              "noteNumber": 60
+            }
+          ],
+
+
+
+
         "kernkraft 400": [
             {
                 "isActive": true,

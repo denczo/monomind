@@ -10,7 +10,6 @@ const WfSelector = ({oscId} : {oscId: OscId}) => {
     const {oscParams, setOscParams} = useGlobalContext();
     const audioEngine = AudioEngine.getInstance();
 
-
     const updateItem = (index: OscId, newValue: string) => {
         setOscParams((prevItems) => {
           const updatedItems = [...prevItems];
