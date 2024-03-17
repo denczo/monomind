@@ -1,4 +1,8 @@
 #Osc{
     border: 4px inset black;
     border-radius: 5px;
+    padding: 0px;
+    width: 100%;
+    max-width: 40%;
 }
+

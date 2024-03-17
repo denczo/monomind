@@ -17,9 +17,12 @@ function App() {
   const keyMap = {65: 36, 87: 37, 83: 38, 69: 39, 68: 40, 70: 41, 84: 42, 71: 43, 89: 44, 72: 45, 85: 46, 74: 47, 75: 48}
   return (
     <GlobalProvider>
+
       <div className="App">
+
         <div id="SynthWrapper">
-        <h3>MonoMind - a monophonic synthesizer powered by the Web Audio API</h3>
+
+        {/* <h3>MonoMind - a monophonic synthesizer powered by the Web Audio API</h3> */}
         <div className="Synth">
           <div className='SliderSection'>
             <Controls />
@@ -32,11 +35,13 @@ function App() {
               <span id='Label'>MonoMind</span>
             </div>
           </div>
-          <Keyboard notes={notes} keyMap={keyMap} />
+            <Keyboard notes={notes} keyMap={keyMap} />
         </div>
+
         </div>
-        <Footer />
+         <Footer />
       </div>
+    
     </GlobalProvider>
   );
 }

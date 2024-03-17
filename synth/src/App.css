@@ -2,12 +2,14 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: radial-gradient(#ffffff, #889b86);
   height: 100vh;
   user-select: none;
   min-height: 100vh;
+  padding: 5px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .touchpad {
@@ -29,17 +31,24 @@ h3{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   height: 100%;
+  max-width: max-content;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Synth {
+  display: flex;
+  flex-direction: column;
   padding: 10px 20px 0px 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
   border: 5px outset rgb(66, 66, 66);
   background: linear-gradient(to top, #1a1a1a 0%, rgb(59, 59, 59) 100%);
+  /* overflow-x: scroll; */
+  /* width: max-content; */
 }
 
 .SliderSection {
@@ -54,6 +63,15 @@ h3{
   padding: 10px 0px 10px 0px;
 }
 
+
+@media only screen and (max-width: 1280px) {
+  #VizSection{
+      /* flex-wrap: wrap; */
+      /* flex-direction: column; */
+  }
+
+}
+
 @import url('https://fonts.googleapis.com/css?family=MonteCarlo');
 
 #Label {
@@ -64,10 +82,28 @@ h3{
   font-weight: bold;
   font-size: 25pt;
   color: goldenrod;
-  padding-right: 30px;
+  padding-right: 10px;
   /* background-color: aqua; */
 }
 
 .LabelPlacement {
   display: flex;
 }
+
+    .parent-container {
+        display: flex;
+        flex-direction: column;
+        height: 200px; /* Fixed height or constrained height */
+        border: 1px solid #ccc;
+    }
+    .child-container {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .child {
+        display: inline-block;
+        width: 200px;
+        height: 100px;
+        background-color: #f0f0f0;
+        margin: 5px;
+    }

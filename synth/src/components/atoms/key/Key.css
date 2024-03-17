@@ -1,5 +1,5 @@
 .WK {
-    display: flex;
+    display: inline-block; 
     width: 50px;
     background-color: white;
     height: 120px;
@@ -8,13 +8,14 @@
 }
 
 .BK {
-    display: flex;
+    display: inline-block; 
     width: 30px;
     background-color: black;
     height: 75px;
     transform: translateX(50%);
     margin-left: -30px;
     border-radius: 3px;
+    vertical-align: top;
 }
 .BK.active {
     background-color: lightskyblue;

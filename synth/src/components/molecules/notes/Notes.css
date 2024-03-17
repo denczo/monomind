@@ -3,6 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 800px;
+    /* width: 800px; */
+    max-width: 800px;
     gap: 2px;
 }

@@ -9,6 +9,12 @@
     margin-right: 5px;
 }
 
+@media only screen and (max-width: 896px) {
+    .SeqCtrl{
+        display: none;
+    }
+}
+
 .SeqCtrl.play{
     background: radial-gradient(#ffb1b1, #ff555d);
     border: 3px outset #ffb1b1;
