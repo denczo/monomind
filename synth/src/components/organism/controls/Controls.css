@@ -7,7 +7,6 @@
 @media only screen and (max-width: 896px) {
     .Controls{
         max-height: 400px;
-
         flex-wrap: wrap;
         align-items: center;
         justify-self: center;
@@ -17,4 +16,11 @@
     fieldset:nth-child(3){
         order: 2;
     }
+}
+
+@media only screen and (max-height: 650px) {
+    .Controls{
+        max-height: 200px;
+    }
+    
 }

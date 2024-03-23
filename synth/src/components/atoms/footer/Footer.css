@@ -6,7 +6,7 @@
     padding: 10px;
     color: grey;
 }
-@media screen and (max-aspect-ratio: 16/9) and (max-height: 799px){
+@media screen and (max-height: 899px){
     #Footer{
         display: none;
     }

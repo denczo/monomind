@@ -3,10 +3,17 @@
     flex-direction: column;
     justify-content: space-evenly;
     padding: 10px 0px 10px 0px;
+    align-self: center;
     /* max-width: 820px; */
 }
 
-@media only screen and (max-width: 896px) {
+@media only screen and (max-width: 896px){
+    .Sequencer{
+        display: none;
+    }
+}
+
+@media screen and (max-height: 599px){
     .Sequencer{
         display: none;
     }

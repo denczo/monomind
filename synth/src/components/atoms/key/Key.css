@@ -17,22 +17,8 @@
     border-radius: 3px;
     vertical-align: top;
 }
-.BK.active {
-    background-color: lightskyblue;
-    transition: 0.05s linear;
-}
 
-.WK.active {
-    background-color: lightskyblue;
-    transition: 0.05s linear;
-}
-
-.WK:active {
-    background-color: lightskyblue;
-    transition: 0.05s linear;
-}
-
-.BK:active {
+.BK.active, .WK.active, .WK:active, .BK:active {
     background-color: lightskyblue;
     transition: 0.05s linear;
 }
