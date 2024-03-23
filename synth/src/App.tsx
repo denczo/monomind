@@ -22,7 +22,7 @@ function App() {
 
         <div id="SynthWrapper">
 
-        {/* <h3>MonoMind - a monophonic synthesizer powered by the Web Audio API</h3> */}
+        <h3 id="headline">MonoMind - a monophonic synthesizer powered by the Web Audio API</h3>
         <div className="Synth">
           <div className='SliderSection'>
             <Controls />

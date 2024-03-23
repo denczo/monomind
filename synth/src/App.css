@@ -3,10 +3,9 @@
   display: flex;
   flex-direction: column;
   background: radial-gradient(#ffffff, #889b86);
-  height: 100vh;
+  height: calc(100vh - 20px);
   user-select: none;
-  min-height: 100vh;
-  padding: 5px;
+  /* min-height: 100%; */
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
@@ -36,6 +35,7 @@ h3{
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  /* background-color: red; */
 }
 
 .Synth {
@@ -64,26 +64,23 @@ h3{
 }
 
 
-@media only screen and (max-width: 1280px) {
-  #VizSection{
-      /* flex-wrap: wrap; */
-      /* flex-direction: column; */
+@media screen and (max-aspect-ratio: 16/9) and (max-height: 799px){
+  #headline{
+    display: none;
   }
-
 }
+
 
 @import url('https://fonts.googleapis.com/css?family=MonteCarlo');
 
 #Label {
   font-family: 'MonteCarlo', cursive;
   display: flex;
-  /* align-items: flex-end;   */
   align-items: center;
   font-weight: bold;
   font-size: 25pt;
   color: goldenrod;
   padding-right: 10px;
-  /* background-color: aqua; */
 }
 
 .LabelPlacement {
@@ -107,3 +104,22 @@ h3{
         background-color: #f0f0f0;
         margin: 5px;
     }
+
+::-webkit-scrollbar{
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track-piece{
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: goldenrod;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}

@@ -10,7 +10,7 @@
 }
 
 @media only screen and (max-width: 896px) {
-    .SeqCtrl{
+    .SeqCtrl:nth-child(2), .SeqCtrl:nth-child(3){
         display: none;
     }
 }
