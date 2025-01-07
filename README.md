@@ -2,7 +2,7 @@
 
 MonoMind is a synthesizer written with ReactJS and Typescript using the Web Audio API. Like it's name suggest it is a monophonic synthesizer with a 32 step sequencer that let you progam any kind of melody. It supports responsive design.
 
-![alt text](./synth/public/monomindV091.png)
+![alt text](./public/monomindV091.png)
 
 
 ### Technical features:
